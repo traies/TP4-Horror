@@ -10,6 +10,7 @@ public class ShootManager : MonoBehaviour {
 	
 
 	public AudioSource Weapon;
+	public AudioSource ClipEmpty;
 	public Camera Camera;
 	public float _timeSinceLastShot;
 	public float ShootingTimeout;
@@ -18,6 +19,7 @@ public class ShootManager : MonoBehaviour {
 	private ParticlePool _sparklesPool;
 	private ParticlePool _bloodPool;
 	private AimManager _aimManager;
+	private WeaponManager _weaponManager;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = GetComponent<Animator>();
@@ -25,6 +27,7 @@ public class ShootManager : MonoBehaviour {
 		_sparklesPool = particlePools[0];
 		_bloodPool = particlePools[1];
 		_aimManager = GetComponent<AimManager>();
+		_weaponManager = GetComponent<WeaponManager>();
 	}
 	
 
@@ -45,6 +48,13 @@ public class ShootManager : MonoBehaviour {
 
 	private void Shoot() 
 	{
+		if (!_weaponManager.ShootIfAble()) {
+			if (!ClipEmpty.isPlaying) {
+			ClipEmpty.Play();	
+
+			}
+			return;
+		}
 		_timeSinceLastShot = 0;
 		_playerAnimator.SetBool("Shooting", true);
 		Weapon.Play();

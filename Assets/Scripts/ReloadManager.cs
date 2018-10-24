@@ -8,11 +8,13 @@ public class ReloadManager : MonoBehaviour {
 	public Image ReloadImage;
 	public AudioSource Weapon;
 	public float ReloadFillPerSecond;
+	private WeaponManager _weaponManager;
 	private bool _reloading;
 	private float _rFill;
 	// Use this for initialization
 	void Start () {
 		_rFill = 0;
+		_weaponManager = GetComponent<WeaponManager>();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +32,7 @@ public class ReloadManager : MonoBehaviour {
 				_rFill = 0;
 				_reloading = false;
 				ReloadCanvas.enabled = false;
+				_weaponManager.ReloadBullets();
 			}  else {
 				ReloadImage.fillAmount = _rFill ;
 			}
