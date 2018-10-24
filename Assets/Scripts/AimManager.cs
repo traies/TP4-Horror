@@ -49,6 +49,12 @@ public class AimManager : MonoBehaviour {
 				}
 			}
 		}
+		if (_aiming) {
+			float erratic = Random.value;
+			float xBob = Mathf.Sin(Time.realtimeSinceStartup * 2.5f );
+			float yBob = Mathf.Cos(Time.realtimeSinceStartup * 2.5f);
+			MainCamera.transform.Rotate(xBob * 3 , yBob * 2, 0);
+		} 
 
 		var gFov = Mathf.Clamp(GunCamera.fieldOfView + _increment, _gunCameraMinFov, _gunCameraMaxFov);
 		var mFov = Mathf.Clamp(MainCamera.fieldOfView + _increment, _mainCameraMinFov, _mainCameraMaxFov);
