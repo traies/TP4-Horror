@@ -180,7 +180,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Shooting
       takeName: mixamo.com
-      firstFrame: 0
+      firstFrame: 10
       lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
