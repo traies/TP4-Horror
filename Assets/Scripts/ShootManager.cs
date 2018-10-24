@@ -20,6 +20,8 @@ public class ShootManager : MonoBehaviour {
 	private ParticlePool _bloodPool;
 	private AimManager _aimManager;
 	private WeaponManager _weaponManager;
+
+	private LayerMask _mask;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = GetComponent<Animator>();
@@ -28,6 +30,7 @@ public class ShootManager : MonoBehaviour {
 		_bloodPool = particlePools[1];
 		_aimManager = GetComponent<AimManager>();
 		_weaponManager = GetComponent<WeaponManager>();
+		_mask = LayerMask.GetMask("Default");
 	}
 	
 
@@ -62,7 +65,7 @@ public class ShootManager : MonoBehaviour {
 
 		// Draw a raycast and collision effect
 		RaycastHit hit;
-		if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, 1000)) {
+		if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, 1000, _mask)) {
 			ParticlePool particlePool;
 			// Check if another player was hit;
 			if (hit.collider.tag == "CharacterCollision") {

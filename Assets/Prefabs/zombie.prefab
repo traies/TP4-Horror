@@ -560,6 +560,8 @@ GameObject:
   - component: {fileID: 95575181114765298}
   - component: {fileID: 114236906227998260}
   - component: {fileID: 114890886985383278}
+  - component: {fileID: 82364434195205548}
+  - component: {fileID: 195928629696319746}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Untagged
@@ -928,6 +930,7 @@ GameObject:
   - component: {fileID: 33281414150079192}
   - component: {fileID: 65946902279314852}
   - component: {fileID: 114898707426425662}
+  - component: {fileID: 114351794169598838}
   m_Layer: 0
   m_Name: RightArmCollision (2)
   m_TagString: CharacterCollision
@@ -1855,6 +1858,7 @@ GameObject:
   - component: {fileID: 33180808150004574}
   - component: {fileID: 65803562021243690}
   - component: {fileID: 114008324085109660}
+  - component: {fileID: 114999047000556382}
   m_Layer: 0
   m_Name: RightArmCollision
   m_TagString: CharacterCollision
@@ -4061,7 +4065,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875261762678616}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -4097,11 +4101,106 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1413894932185284}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82364434195205548
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300697356656178}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bbef9d0b0ac13476bbaca323ca351d24, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.2954774
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95575181114765298
 Animator:
   serializedVersion: 3
@@ -4183,6 +4282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7228c1bd45c31dd468fdbf799d5de644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  AwarenessRaidus: 10
+  AttackRadius: 2
+  HitRadius: 1
+  _player: {fileID: 0}
+  HitDamage: 50
 --- !u!114 &114284559256212608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4209,6 +4314,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LimbDamage: 10
   HealthManager: {fileID: 114890886985383278}
+--- !u!114 &114351794169598838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413894932185284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162d9d04f84cf59468e8fb068171fe69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyManager: {fileID: 114236906227998260}
 --- !u!114 &114534737310175550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4273,6 +4390,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LimbDamage: 10
   HealthManager: {fileID: 114890886985383278}
+--- !u!114 &114999047000556382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875261762678616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162d9d04f84cf59468e8fb068171fe69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyManager: {fileID: 114236906227998260}
 --- !u!137 &137123291608495056
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -4862,3 +4991,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000009924173, y: -0.2677346, z: 0.019149825}
     m_Extent: {x: 0.8927115, y: 0.7472988, z: 0.15544952}
   m_DirtyAABB: 0
+--- !u!195 &195928629696319746
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300697356656178}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 1
+  m_Acceleration: 4
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 2

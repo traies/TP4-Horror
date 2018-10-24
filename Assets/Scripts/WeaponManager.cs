@@ -45,4 +45,8 @@ public class WeaponManager : MonoBehaviour {
 	{
 		return _bulletsRemaining > 0;
 	}
+
+	public void AddBullets(int bullets) {
+		_bulletsRemaining += bullets;
+	}
 }
