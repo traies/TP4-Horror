@@ -7,10 +7,12 @@ public class HealthManager : MonoBehaviour {
 	public float InitialHP;
 	private Animator _animator;
 	private float _hp;
+	private EnemyManager _enemyManager;
 	// Use this for initialization
 	void Start () {
 		_hp = InitialHP;
 		_animator = GetComponent<Animator>();
+		_enemyManager = GetComponent<EnemyManager>();
 	}
 	
 	// Update is called once per frame
@@ -21,6 +23,7 @@ public class HealthManager : MonoBehaviour {
 	private void DeathAnimation()
 	{
 		_animator.SetTrigger("Dead");
+		_enemyManager.Die();
 	}
 
 	public void TakeDamage(float damage) {
