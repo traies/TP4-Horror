@@ -16,7 +16,9 @@ public class PlayerHealthManager : MonoBehaviour {
 	
 	public AudioSource UseHealthPackSound;
 	public AudioSource NoHealthPackSound;
+	public AudioSource DeathSound;
 	public TextMeshProUGUI HealthPacksUI;
+	private bool dead;
 
 	// Use this for initialization
 	void Start () {
@@ -46,14 +48,18 @@ public class PlayerHealthManager : MonoBehaviour {
 	private void DeathAnimation()
 	{
 		_animator.SetTrigger("Dead");
+		DeathSound.Play();
 		_playerManager.Die();
 		_animator.SetLayerWeight(1, 0);
 	}
 
 	public void TakeDamage(float damage) {
-		_hp -= damage;
-		if (_hp <= 0) {
-			DeathAnimation();
+		if (!dead) {
+			_hp -= damage;
+			if (_hp <= 0) {
+				dead = true;
+				DeathAnimation();
+			}
 		}
 	}
 

@@ -21,6 +21,10 @@ public class EnemyManager : MonoBehaviour {
 	private AudioSource _HitSound;
 	private bool _hitOnAnimation;
 	public float HitDamage;
+
+	private HealthManager _healthManager;
+	private ZombieSoundManager _zombieSounds;
+
 	// Use this for initialization
 	void Start () {
 		_agent = GetComponent<NavMeshAgent>();
@@ -28,6 +32,8 @@ public class EnemyManager : MonoBehaviour {
 		_state = EnemyState.IDLE;
 		_hitCollider = GetComponent<Collider>();
 		_HitSound = GetComponent<AudioSource>();
+		_healthManager = GetComponent<HealthManager>();
+		_zombieSounds = GetComponent<ZombieSoundManager>();
 	}
 
 	public enum EnemyState {
@@ -105,6 +111,8 @@ public class EnemyManager : MonoBehaviour {
 
 	public void Die() {
 		_state = EnemyState.DEAD;
+		_healthManager.enabled = false;
+		_zombieSounds.enabled = false;
 	}
 
 	public void Hit() {

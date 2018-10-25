@@ -53,8 +53,7 @@ public class ShootManager : MonoBehaviour {
 	{
 		if (!_weaponManager.ShootIfAble()) {
 			if (!ClipEmpty.isPlaying) {
-			ClipEmpty.Play();	
-
+				ClipEmpty.Play();	
 			}
 			return;
 		}
