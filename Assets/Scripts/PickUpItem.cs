@@ -2,22 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpItem : MonoBehaviour {
-	public int BulletCount;
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public void PickUp(PickUpManager pickUpManager) {
-		pickUpManager.GetComponent<WeaponManager>().AddBullets(BulletCount);
-		
-		Destroy(gameObject);
-	}
+public abstract class PickUpItem : MonoBehaviour {
+	public string Name;
+	public abstract void PickUp(PickUpManager pickUpManager);
 }

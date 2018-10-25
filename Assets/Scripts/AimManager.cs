@@ -13,6 +13,7 @@ public class AimManager : MonoBehaviour {
 	[SerializeField] private float _increment;
 	private bool _aiming;
 	private ReloadManager _reloadManager;
+	public float HeadBobSpeed, HeadBobAmplitude;
 	// Use this for initialization
 	void Start () {
 		_gunCameraMaxFov = GunCamera.fieldOfView;
@@ -51,9 +52,9 @@ public class AimManager : MonoBehaviour {
 		}
 		if (_aiming) {
 			float erratic = Random.value;
-			float xBob = Mathf.Sin(Time.realtimeSinceStartup * 2.5f );
-			float yBob = Mathf.Cos(Time.realtimeSinceStartup * 2.5f);
-			MainCamera.transform.Rotate(xBob * 3 , yBob * 2, 0);
+			float xBob = Mathf.Sin(Time.realtimeSinceStartup * HeadBobSpeed );
+			float yBob = Mathf.Cos(Time.realtimeSinceStartup * HeadBobSpeed + 0.5f);
+			MainCamera.transform.Rotate(xBob * HeadBobAmplitude , yBob * HeadBobAmplitude, 0);
 		} 
 
 		var gFov = Mathf.Clamp(GunCamera.fieldOfView + _increment, _gunCameraMinFov, _gunCameraMaxFov);

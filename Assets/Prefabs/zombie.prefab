@@ -4287,7 +4287,7 @@ MonoBehaviour:
   AttackRadius: 2
   HitRadius: 1
   _player: {fileID: 0}
-  HitDamage: 50
+  HitDamage: 80
 --- !u!114 &114284559256212608
 MonoBehaviour:
   m_ObjectHideFlags: 1
