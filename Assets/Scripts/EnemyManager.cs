@@ -113,6 +113,7 @@ public class EnemyManager : MonoBehaviour {
 		_state = EnemyState.DEAD;
 		_healthManager.enabled = false;
 		_zombieSounds.enabled = false;
+		_agent.enabled = false;
 	}
 
 	public void Hit() {
@@ -124,4 +125,12 @@ public class EnemyManager : MonoBehaviour {
 	{
 		return _state;
 	}
+
+	void OnAnimatorMove ()
+    {
+        // Update position based on animation movement using navigation surface height
+        Vector3 position = _animator.rootPosition;
+        position.y = _agent.nextPosition.y;
+        transform.position = position;
+    }
 }

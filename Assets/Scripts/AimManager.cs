@@ -50,12 +50,6 @@ public class AimManager : MonoBehaviour {
 				}
 			}
 		}
-		if (_aiming) {
-			float erratic = Random.value;
-			float xBob = Mathf.Sin(Time.realtimeSinceStartup * HeadBobSpeed );
-			float yBob = Mathf.Cos(Time.realtimeSinceStartup * HeadBobSpeed + 0.5f);
-			MainCamera.transform.Rotate(xBob * HeadBobAmplitude , yBob * HeadBobAmplitude, 0);
-		} 
 
 		var gFov = Mathf.Clamp(GunCamera.fieldOfView + _increment, _gunCameraMinFov, _gunCameraMaxFov);
 		var mFov = Mathf.Clamp(MainCamera.fieldOfView + _increment, _mainCameraMinFov, _mainCameraMaxFov);
@@ -65,6 +59,15 @@ public class AimManager : MonoBehaviour {
 		if (mFov != MainCamera.fieldOfView) {
 			MainCamera.fieldOfView = mFov;
 		}
+	}
+
+	void LateUpdate()
+	{
+		if (_aiming) {
+			float xBob = Mathf.Sin(Time.realtimeSinceStartup * HeadBobSpeed );
+			float yBob = Mathf.Cos(Time.realtimeSinceStartup * HeadBobSpeed);
+			MainCamera.transform.Rotate(xBob * HeadBobAmplitude, yBob * HeadBobAmplitude, 0);
+		} 
 	}
 
 	public bool IsAiming() {

@@ -19,7 +19,7 @@ public class ReloadManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!_reloading && Input.GetButtonDown("Reload")) {
+		if (!_reloading && _weaponManager.CanReload() && Input.GetButtonDown("Reload")) {
 			// Start reloading
 			_reloading = true;
 			ReloadCanvas.enabled = true;

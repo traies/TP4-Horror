@@ -43,10 +43,11 @@ public class WeaponManager : MonoBehaviour {
 
 	public bool CanReload()
 	{
-		return _bulletsRemaining > 0;
+		return _bulletsRemaining > 0 && _bulletsLoaded < BulletClipSize;
 	}
 
 	public void AddBullets(int bullets) {
 		_bulletsRemaining += bullets;
 	}
+
 }
