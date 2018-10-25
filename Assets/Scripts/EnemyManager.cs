@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour {
 	public float AwarenessRaidus;
 	public float AttackRadius;
 	public float HitRadius;
+	public float AnimationSpeedRandomizationMin, AnimationSpeedRandomizationMax;
 	public PlayerHealthManager _player;
 	private Collider _hitCollider;
 
@@ -24,7 +25,6 @@ public class EnemyManager : MonoBehaviour {
 
 	private HealthManager _healthManager;
 	private ZombieSoundManager _zombieSounds;
-
 	// Use this for initialization
 	void Start () {
 		_agent = GetComponent<NavMeshAgent>();
@@ -34,6 +34,7 @@ public class EnemyManager : MonoBehaviour {
 		_HitSound = GetComponent<AudioSource>();
 		_healthManager = GetComponent<HealthManager>();
 		_zombieSounds = GetComponent<ZombieSoundManager>();
+		_animator.speed *= Random.value * (AnimationSpeedRandomizationMax - AnimationSpeedRandomizationMin) + AnimationSpeedRandomizationMin;
 	}
 
 	public enum EnemyState {
