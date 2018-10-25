@@ -64,7 +64,6 @@ public class EnemyManager : MonoBehaviour {
 				Collider aux;
 				if (CheckPlayerProximity(out aux)) {
 					_animator.SetTrigger("Attack");
-					Debug.Log("Attack");
 					_state = EnemyState.ATTACKING;
 					_agent.isStopped = true;
 				}
@@ -76,7 +75,6 @@ public class EnemyManager : MonoBehaviour {
 				break;
 			}
 			case EnemyState.ATTACKING: {
-				Debug.Log("Agent: " + _agent.isStopped);
 				var animationState = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 				if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animationState >= 1) {
 					_state = EnemyState.FOLLOWING;
@@ -98,13 +96,8 @@ public class EnemyManager : MonoBehaviour {
 		var position = transform.position;
 		position.y += 1;
 		RaycastHit hit;
-		
-		Debug.DrawRay(position, transform.forward, Color.white, HitRadius);
 		if (Physics.Raycast(position, transform.forward, out hit, HitRadius)) {
-			Debug.Log(hit.collider.tag);
-			
 			if ( hit.collider.tag == "Player") {
-
 				collider = hit.collider;
 				return true;
 			}
