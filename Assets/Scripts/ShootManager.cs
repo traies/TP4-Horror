@@ -30,7 +30,7 @@ public class ShootManager : MonoBehaviour {
 		_bloodPool = particlePools[1];
 		_aimManager = GetComponent<AimManager>();
 		_weaponManager = GetComponent<WeaponManager>();
-		_mask = LayerMask.GetMask("Default");
+		_mask = LayerMask.GetMask("Default", "Zombie", "Door");
 	}
 	
 

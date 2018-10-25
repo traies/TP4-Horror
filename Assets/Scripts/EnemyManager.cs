@@ -25,6 +25,8 @@ public class EnemyManager : MonoBehaviour {
 
 	private HealthManager _healthManager;
 	private ZombieSoundManager _zombieSounds;
+	private Rigidbody _rb;
+	public List<Collider> Limbs;
 	// Use this for initialization
 	void Start () {
 		_agent = GetComponent<NavMeshAgent>();
@@ -34,6 +36,7 @@ public class EnemyManager : MonoBehaviour {
 		_HitSound = GetComponent<AudioSource>();
 		_healthManager = GetComponent<HealthManager>();
 		_zombieSounds = GetComponent<ZombieSoundManager>();
+		_rb = GetComponent<Rigidbody>();
 		_animator.speed *= Random.value * (AnimationSpeedRandomizationMax - AnimationSpeedRandomizationMin) + AnimationSpeedRandomizationMin;
 	}
 
@@ -115,6 +118,9 @@ public class EnemyManager : MonoBehaviour {
 		_healthManager.enabled = false;
 		_zombieSounds.enabled = false;
 		_agent.enabled = false;
+		foreach(var collider in Limbs) {
+			collider.enabled = false;
+		}
 	}
 
 	public void Hit() {
