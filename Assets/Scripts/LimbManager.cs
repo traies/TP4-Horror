@@ -14,8 +14,8 @@ public class LimbManager : MonoBehaviour {
 		
 	}
 
-	public void TakeDamage()
+	public void TakeDamage(float DamageMultiplier)
 	{
-		HealthManager.TakeDamage(LimbDamage);
+		HealthManager.TakeDamage(LimbDamage * DamageMultiplier);
 	}
 }

@@ -65,7 +65,7 @@ public class AimManager : MonoBehaviour {
 		}
 	}
 
-	void LateUpdate()
+	public void UpdateAim()
 	{
 		if (_aiming) {
 			float xBob = Mathf.Sin(Time.realtimeSinceStartup * HeadBobSpeed );

@@ -21,6 +21,7 @@ public class AxeManager : IGenericWeaponManager {
 	public float FOVAdjustment;
 	public Vector3 GunCameraAdjustment;
 	private Quaternion _rot;
+	public float DamageMultiplier;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = PlayerManager.GetComponent<Animator>();
@@ -36,7 +37,7 @@ public class AxeManager : IGenericWeaponManager {
 	void Update () {
 		_timeSinceLastShot += Time.deltaTime;
 
-		if (Input.GetButtonDown("Shoot")) {
+		if (Input.GetButton("Shoot")) {
 			if (_timeSinceLastShot >= ShootingTimeout) {
 				_timeSinceLastShot = 0;
 				_playerAnimator.SetTrigger("Hit");
@@ -58,7 +59,7 @@ public class AxeManager : IGenericWeaponManager {
 				var limbController = hit.collider.GetComponent<LimbManager>();
 				_audioSource.clip = BodyHitSound;
 				_audioSource.Play();
-				limbController.TakeDamage();
+				limbController.TakeDamage(DamageMultiplier);
 				particlePool = _bloodPool;
 			} else {
 				_audioSource.clip = SurfaceHitSound;
@@ -79,7 +80,6 @@ public class AxeManager : IGenericWeaponManager {
 	Quaternion _originalRotation;
 	public override void ResetAnimations()
 	{
-		_originalRotation = GunCamera.transform.rotation;
 		GunCamera.transform.Rotate(GunCameraAdjustment, 20f);
 		_playerAnimator.SetLayerWeight(2, 1);
 		_oldFOV = GunCamera.fieldOfView;
@@ -88,7 +88,7 @@ public class AxeManager : IGenericWeaponManager {
 
 	public override void TurnAnimationsOff()
 	{	
-		// GunCamera.fieldOfView = _oldFOV;
+		GunCamera.fieldOfView = _oldFOV;
 		_playerAnimator.SetLayerWeight(2, 0);
 		Debug.Log(-GunCameraAdjustment);
 		GunCamera.transform.Rotate(GunCameraAdjustment, -20f);

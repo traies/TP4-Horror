@@ -233,3 +233,4 @@ MonoBehaviour:
   Swoosh: {fileID: 8300000, guid: 52fa067c25c5c401b811eb86d142287e, type: 3}
   FOVAdjustment: 60
   GunCameraAdjustment: {x: 18, y: 27, z: 0}
+  DamageMultiplier: 0.5

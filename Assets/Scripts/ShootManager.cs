@@ -5,9 +5,10 @@ using UnityEngine;
 [RequireComponent (typeof(AimManager))]
 public class ShootManager : IGenericWeaponManager {
 	private Animator _playerAnimator;
-	public AudioSource Weapon;
-	public AudioSource ClipEmpty;
+	public AudioClip WeaponFire;
+	public AudioClip ClipEmpty;
 	public Camera Camera;
+	public Camera GunCamera;
 	public float _timeSinceLastShot;
 	public float ShootingTimeout;
 	public ParticleSystem MuzzleFlash;
@@ -18,6 +19,10 @@ public class ShootManager : IGenericWeaponManager {
 	private WeaponManager _weaponManager;
 	private ReloadManager _reloadManager;
 	private LayerMask _mask;
+	public int AnimationLayer;
+	public Vector3 GunCameraAdjustment;
+	private AudioSource _audioSource;
+	public float DamageMultiplier;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = PlayerManager.GetComponent<Animator>();
@@ -28,13 +33,14 @@ public class ShootManager : IGenericWeaponManager {
 		_weaponManager = GetComponent<WeaponManager>();
 		_mask = LayerMask.GetMask("Default", "Zombie", "Door");
 		_reloadManager = GetComponent<ReloadManager>();
+		_audioSource = GetComponent<AudioSource>();
 	}
 	
 
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		_timeSinceLastShot += Time.deltaTime;
-
+		_aimManager.UpdateAim();
 		if (Input.GetButton("Shoot")) {
 			if (_timeSinceLastShot >= ShootingTimeout && _aimManager.IsAiming()) {
 				Shoot();
@@ -49,14 +55,14 @@ public class ShootManager : IGenericWeaponManager {
 	private void Shoot() 
 	{
 		if (!_weaponManager.ShootIfAble()) {
-			if (!ClipEmpty.isPlaying) {
-				ClipEmpty.Play();	
+			if (!_audioSource.isPlaying) {
+				Play(ClipEmpty);	
 			}
 			return;
 		}
 		_timeSinceLastShot = 0;
 		_playerAnimator.SetBool("Shooting", true);
-		Weapon.Play();
+		Play(WeaponFire);
 		MuzzleFlash.Play();
 
 		// Draw a raycast and collision effect
@@ -67,7 +73,7 @@ public class ShootManager : IGenericWeaponManager {
 			if (hit.collider.tag == "CharacterCollision") {
 				// Make other player take damage
 				var limbController = hit.collider.GetComponent<LimbManager>();
-				limbController.TakeDamage();
+				limbController.TakeDamage(DamageMultiplier);
 				particlePool = _bloodPool;
 			} else {
 				particlePool = _sparklesPool;
@@ -77,19 +83,44 @@ public class ShootManager : IGenericWeaponManager {
 			particleSystem.Play();
 			particlePool.ReleaseParticleSystem(particleSystem);
 		}
+		StartCoroutine(Recoil());
 	}
 
+	public float RecoilAmount;
+	public float RecoilSmoothness;
+	private IEnumerator Recoil()
+	{
+		Camera.transform.Rotate(Vector3.left * RecoilAmount * RecoilSmoothness);
+		for (int i = 1; i <= RecoilAmount; i++) {
+			yield return null;
+			Camera.transform.Rotate(Vector3.left * (RecoilAmount - i) * RecoilSmoothness);
+		}
+	}
+	public float FOVAdjustment;
+	float _oldFOV;
+	public float GunCameraAdjustmentAngle;
 	public override void ResetAnimations()
 	{
+		GunCamera.transform.Rotate(GunCameraAdjustment, GunCameraAdjustmentAngle);
 		_weaponManager.TurnOnGUI();
-		_playerAnimator.SetLayerWeight(1, 1);
+		_playerAnimator.SetLayerWeight(AnimationLayer, 1);
+		_oldFOV = GunCamera.fieldOfView;
+		GunCamera.fieldOfView = FOVAdjustment;
+	}
+
+	void Play(AudioClip clip) 
+	{
+		_audioSource.clip = clip;
+		_audioSource.Play();
 	}
 
 	public override void TurnAnimationsOff()
 	{
-		_playerAnimator.SetLayerWeight(1, 0);
+			GunCamera.fieldOfView = _oldFOV;
+		_playerAnimator.SetLayerWeight(AnimationLayer, 0);
 		_weaponManager.TurnOffGUI();
 		_reloadManager.StopReload();
 		_aimManager.ResetAiming();
+		GunCamera.transform.Rotate(GunCameraAdjustment, -GunCameraAdjustmentAngle);
 	}
 }

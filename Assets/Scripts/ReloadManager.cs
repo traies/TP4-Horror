@@ -6,15 +6,17 @@ using UnityEngine.UI;
 public class ReloadManager : MonoBehaviour {
 	public Canvas ReloadCanvas;
 	public Image ReloadImage;
-	public AudioSource Weapon;
+	public AudioClip Reload;
 	public float ReloadFillPerSecond;
 	private WeaponManager _weaponManager;
 	private bool _reloading;
 	private float _rFill;
+	private AudioSource _audioSource;
 	// Use this for initialization
 	void Start () {
 		_rFill = 0;
 		_weaponManager = GetComponent<WeaponManager>();
+		_audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -23,7 +25,8 @@ public class ReloadManager : MonoBehaviour {
 			// Start reloading
 			_reloading = true;
 			ReloadCanvas.enabled = true;
-			Weapon.Play();
+			_audioSource.clip = Reload;
+			_audioSource.Play();
 		}
 		if (_reloading) {
 			_rFill += ReloadFillPerSecond * Time.deltaTime;
