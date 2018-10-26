@@ -7,7 +7,7 @@ public class WeaponManager : MonoBehaviour {
 	public int BulletClipSize;
 
 	public TextMeshProUGUI RemainingBulletsUI, ClipBulletsUI;
-
+	public Canvas BulletsCanvas;
 	private int _bulletsLoaded;
 	private int _bulletsRemaining;
 
@@ -50,4 +50,13 @@ public class WeaponManager : MonoBehaviour {
 		_bulletsRemaining += bullets;
 	}
 
+	public void TurnOffGUI()
+	{
+		BulletsCanvas.enabled = false;
+	}
+
+	public void TurnOnGUI() 
+	{
+		BulletsCanvas.enabled = true;
+	}
 }

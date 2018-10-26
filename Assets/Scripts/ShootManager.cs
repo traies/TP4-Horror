@@ -3,34 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(AimManager))]
-public class ShootManager : MonoBehaviour {
+public class ShootManager : IGenericWeaponManager {
 	private Animator _playerAnimator;
-	private Transform _rightShoulder;
-	private Transform _leftShoulder;
-	
-
 	public AudioSource Weapon;
 	public AudioSource ClipEmpty;
 	public Camera Camera;
 	public float _timeSinceLastShot;
 	public float ShootingTimeout;
 	public ParticleSystem MuzzleFlash;
-
+	public PlayerManager PlayerManager;
 	private ParticlePool _sparklesPool;
 	private ParticlePool _bloodPool;
 	private AimManager _aimManager;
 	private WeaponManager _weaponManager;
-
+	private ReloadManager _reloadManager;
 	private LayerMask _mask;
 	// Use this for initialization
 	void Start () {
-		_playerAnimator = GetComponent<Animator>();
+		_playerAnimator = PlayerManager.GetComponent<Animator>();
 		var particlePools = GetComponents<ParticlePool>();
 		_sparklesPool = particlePools[0];
 		_bloodPool = particlePools[1];
 		_aimManager = GetComponent<AimManager>();
 		_weaponManager = GetComponent<WeaponManager>();
 		_mask = LayerMask.GetMask("Default", "Zombie", "Door");
+		_reloadManager = GetComponent<ReloadManager>();
 	}
 	
 
@@ -80,5 +77,19 @@ public class ShootManager : MonoBehaviour {
 			particleSystem.Play();
 			particlePool.ReleaseParticleSystem(particleSystem);
 		}
+	}
+
+	public override void ResetAnimations()
+	{
+		_weaponManager.TurnOnGUI();
+		_playerAnimator.SetLayerWeight(1, 1);
+	}
+
+	public override void TurnAnimationsOff()
+	{
+		_playerAnimator.SetLayerWeight(1, 0);
+		_weaponManager.TurnOffGUI();
+		_reloadManager.StopReload();
+		_aimManager.ResetAiming();
 	}
 }

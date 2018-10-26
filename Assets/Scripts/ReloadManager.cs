@@ -29,9 +29,7 @@ public class ReloadManager : MonoBehaviour {
 			_rFill += ReloadFillPerSecond * Time.deltaTime;
 			if (_rFill >= 1) {
 				// Finished reloading.
-				_rFill = 0;
-				_reloading = false;
-				ReloadCanvas.enabled = false;
+				StopReload();
 				_weaponManager.ReloadBullets();
 			}  else {
 				ReloadImage.fillAmount = _rFill ;
@@ -43,4 +41,9 @@ public class ReloadManager : MonoBehaviour {
 		return _reloading;
 	}
 
+	public void StopReload() {
+		_rFill = 0;
+		_reloading = false;
+		ReloadCanvas.enabled = false;
+	}
 }

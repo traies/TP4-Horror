@@ -14,6 +14,8 @@ public class AimManager : MonoBehaviour {
 	private bool _aiming;
 	private ReloadManager _reloadManager;
 	public float HeadBobSpeed, HeadBobAmplitude;
+	private ShootManager _shootManager;
+	private PlayerManager _playerManager;
 	// Use this for initialization
 	void Start () {
 		_gunCameraMaxFov = GunCamera.fieldOfView;
@@ -21,6 +23,8 @@ public class AimManager : MonoBehaviour {
 		_gunCameraMinFov = _gunCameraMaxFov * AimingFovMultiplier;
 		_mainCameraMinFov = _mainCameraMaxFov * AimingFovMultiplier;
 		_reloadManager = GetComponent<ReloadManager>();
+		_shootManager = GetComponent<ShootManager>();
+		_playerManager = _shootManager.PlayerManager;
 	}
 	
 	private bool CheckIfAimingInput()
@@ -68,9 +72,20 @@ public class AimManager : MonoBehaviour {
 			float yBob = Mathf.Cos(Time.realtimeSinceStartup * HeadBobSpeed);
 			MainCamera.transform.Rotate(xBob * HeadBobAmplitude, yBob * HeadBobAmplitude, 0);
 		} 
+		_playerManager.IsAiming(_aiming);
 	}
 
 	public bool IsAiming() {
 		return _aiming;
+	}
+
+	public void ResetAiming() 
+	{
+		GunCamera.fieldOfView = _gunCameraMaxFov;
+		MainCamera.fieldOfView = _mainCameraMaxFov;
+		_increment = 0;
+		Crosshairs.enabled = false;
+		_aiming = false;
+		_playerManager.IsAiming(false);
 	}
 }

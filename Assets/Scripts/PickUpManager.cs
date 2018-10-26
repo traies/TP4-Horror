@@ -9,6 +9,7 @@ public class PickUpManager : MonoBehaviour {
 	public TextMeshProUGUI PickUpPrompt, PickUpItemName;
 	private LayerMask mask;
 	public AudioSource PickUpSound;
+	public WeaponManager WeaponManager;
 	// Use this for initialization
 	void Start () {
 		mask = LayerMask.GetMask("Default");

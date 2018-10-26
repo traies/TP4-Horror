@@ -7,7 +7,7 @@ public class AmmoPickUpItem : PickUpItem {
 	public int BulletCount;
 
 	public override void PickUp(PickUpManager pickUpManager) {
-		pickUpManager.GetComponent<WeaponManager>().AddBullets(BulletCount);
+		pickUpManager.WeaponManager.AddBullets(BulletCount);
 		Destroy(gameObject);
 	}
 }
