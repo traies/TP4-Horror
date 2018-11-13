@@ -50,9 +50,9 @@ public class EnemyManager : MonoBehaviour {
 		ATTACKING,
 		DEAD
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
 		var distanceToPlayer = (transform.position - _player.transform.position).magnitude;
 		switch (_state) {
@@ -67,6 +67,7 @@ public class EnemyManager : MonoBehaviour {
 
 				Collider aux;
 				if (CheckPlayerProximity(out aux)) {
+					transform.LookAt(_player.transform);
 					_animator.SetTrigger("Attack");
 					_state = EnemyState.ATTACKING;
 					_hitOnAnimation = true;
@@ -83,7 +84,7 @@ public class EnemyManager : MonoBehaviour {
 			}
 			case EnemyState.ATTACKING: {
 				var animationState = _animator.GetCurrentAnimatorStateInfo(0);
-				
+
 				if (animationState.IsName("Attack")) {
 					if (animationState.normalizedTime >= 0.4 && animationState.normalizedTime <= 0.6  && _hitOnAnimation) {
 						if (CheckPlayerHit()) {
