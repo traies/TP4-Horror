@@ -598,6 +598,11 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 152202849}
+    - target: {fileID: 114236906227998260, guid: 1f08b1a79d98fd24ea953c06a91a3b3a,
+        type: 2}
+      propertyPath: AttackDelay
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
   m_IsPrefabAsset: 0
