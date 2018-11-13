@@ -66,22 +66,37 @@ public class LevelGenerator : MonoBehaviour
                         UpdateSpawnRate(rand);
                     }
 
-                    if (newChunk.GetComponent<Chunks>().type == ChunkType.Corridor)
+                    //if (newChunk.GetComponent<Chunks>().type == ChunkType.Corridor)
+                    //{
+                    //    if (Random.value <= roomSpawnRate)
+                    //    {
+                    //        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
+                    //        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
+                    //        Direction tempDir = UpdateDirection(direction, mountTransform);
+                    //        GenerateRoom(5, origin, mountTransform, tempDir); // PAS DE COHERENCE AVEC GENERATECHUNK, LE ADD EST INDEPENDANT
+                    //    }
+                    //    if (Random.value <= roomSpawnRate)
+                    //    {
+                    //        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
+                    //        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
+                    //        Direction tempDir = UpdateDirection(direction, mountTransform);
+                    //        GenerateRoom(5, origin, mountTransform, tempDir);
+                    //    }
+                    //}
+
+                    if (IsThereRoomMountingPoints(newChunk))
                     {
-                        if(Random.value <= roomSpawnRate)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            GenerateRoom(5, origin, mountTransform, tempDir); // PAS DE COHERENCE AVEC GENERATECHUNK, LE ADD EST INDEPENDANT
-                        }
-                        if (Random.value <= roomSpawnRate)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            GenerateRoom(5, origin, mountTransform, tempDir);
-                        }  
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        GenerateRoom(5, origin, mountTransform, tempDir);
+                    }
+                    if (IsThereRoomMountingPoints(newChunk))
+                    {
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        GenerateRoom(5, origin, mountTransform, tempDir);
                     }
                 }
                 else if (cache.Count == chunks.Length)
@@ -95,14 +110,55 @@ public class LevelGenerator : MonoBehaviour
         // if one of the condition is not fullfiled then restart the process
         if (CountNumberOfRooms() < nbOfRooms)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("GenerationScene");
         }
         Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
     }
 
+    private Transform GetRoomMountingPoint()
+    {
+        foreach (GameObject obj in _chunks)
+        {
+            foreach (Transform roomPoint in obj.GetComponent<Chunks>().roomPoints)
+            {
+                if (roomPoint.GetComponent<MountPoint>().available)
+                {
+                    roomPoint.GetComponent<MountPoint>().available = false;
+                    return roomPoint;
+                }
+            }
+        }
+        return null; // Never triggered if uses correctly
+    }
+
+    private MapCoordinates GetRoomMountingPoint(bool param)
+    {
+        foreach (GameObject obj in _chunks)
+        {
+            foreach (MapCoordinates roomPoint in obj.GetComponent<Chunks>().chunkMap.roomPoints)
+            {
+                return roomPoint;
+            }
+        }
+        return null; // Never triggered if uses correctly
+    }
+
+    private bool IsThereRoomMountingPoints(GameObject chunk)
+    {
+            foreach (Transform roomPoint in chunk.GetComponent<Chunks>().roomPoints)
+            {
+                if (roomPoint.GetComponent<MountPoint>().available)
+                {
+                    roomPoint.GetComponent<MountPoint>().available = false;
+                    return true;
+                }
+            }
+        return false;
+    }
+
     private void GenerateStartingRoom()
     {
-        newMapChunk = new ChunksMap(6, origin, direction);
+        newMapChunk = new ChunksMap(8, origin, direction);
         if (map.Add(newMapChunk))
         {
             newChunk = Instantiate(startingRoom) as GameObject;
@@ -389,7 +445,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateRoom(int id, MapCoordinates coords, Transform roomPoint, Direction dir)
     {
-        GameObject chunk = new GameObject();
+        GameObject chunk;
         ChunksMap mapChunk = new ChunksMap(id, coords, dir);
         if (map.Add(mapChunk))
         {
@@ -407,7 +463,6 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach (GameObject obj in _chunks)
         {
-            // Get any corridor mouting point left in all existing chunks
             List<Transform> p = obj.GetComponent<Chunks>().mountPoints;
             for (int i = 0; i < p.Count; i++)
             {

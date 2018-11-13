@@ -24,29 +24,21 @@ public class ChunksMap
                         coords.Add(new MapCoordinates(origin.x, origin.y - 1));
                         coords.Add(new MapCoordinates(origin.x, origin.y - 2));
                         mountPoints.Add(new MapCoordinates(origin.x, origin.y - 3));
-                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y - 1));
-                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y - 1));
                         break;
                     case Direction.East:
                         coords.Add(new MapCoordinates(origin.x + 1, origin.y));
                         coords.Add(new MapCoordinates(origin.x + 2, origin.y));
                         mountPoints.Add(new MapCoordinates(origin.x + 3, origin.y));
-                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y - 1));
-                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y + 1));
                         break;
                     case Direction.South:
                         coords.Add(new MapCoordinates(origin.x, origin.y + 1));
                         coords.Add(new MapCoordinates(origin.x, origin.y + 2));
                         mountPoints.Add(new MapCoordinates(origin.x, origin.y + 3));
-                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y + 1));
-                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y + 1));
                         break;
                     case Direction.West:
                         coords.Add(new MapCoordinates(origin.x - 1, origin.y));
                         coords.Add(new MapCoordinates(origin.x - 2, origin.y));
                         mountPoints.Add(new MapCoordinates(origin.x - 3, origin.y));
-                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y + 1));
-                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y - 1));
                         break;
                 }
                 break;
@@ -217,7 +209,71 @@ public class ChunksMap
                 }
                 break;
 
-            case 6: // starting room
+            case 6: // corridor straight with one door
+                switch (direction)
+                {
+                    case Direction.North:
+                        coords.Add(new MapCoordinates(origin.x, origin.y - 1));
+                        coords.Add(new MapCoordinates(origin.x, origin.y - 2));
+                        mountPoints.Add(new MapCoordinates(origin.x, origin.y - 3));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y - 1));
+                        break;
+                    case Direction.East:
+                        coords.Add(new MapCoordinates(origin.x + 1, origin.y));
+                        coords.Add(new MapCoordinates(origin.x + 2, origin.y));
+                        mountPoints.Add(new MapCoordinates(origin.x + 3, origin.y));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y + 1));
+                        break;
+                    case Direction.South:
+                        coords.Add(new MapCoordinates(origin.x, origin.y + 1));
+                        coords.Add(new MapCoordinates(origin.x, origin.y + 2));
+                        mountPoints.Add(new MapCoordinates(origin.x, origin.y + 3));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y + 1));
+                        break;
+                    case Direction.West:
+                        coords.Add(new MapCoordinates(origin.x - 1, origin.y));
+                        coords.Add(new MapCoordinates(origin.x - 2, origin.y));
+                        mountPoints.Add(new MapCoordinates(origin.x - 3, origin.y));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y - 1));
+                        break;
+                }
+                break;
+
+            case 7: // corridor straight with two doors
+                switch (direction)
+                {
+                    case Direction.North:
+                        coords.Add(new MapCoordinates(origin.x, origin.y - 1));
+                        coords.Add(new MapCoordinates(origin.x, origin.y - 2));
+                        mountPoints.Add(new MapCoordinates(origin.x, origin.y - 3));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y - 1));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y - 1));
+                        break;
+                    case Direction.East:
+                        coords.Add(new MapCoordinates(origin.x + 1, origin.y));
+                        coords.Add(new MapCoordinates(origin.x + 2, origin.y));
+                        mountPoints.Add(new MapCoordinates(origin.x + 3, origin.y));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y - 1));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y + 1));
+                        break;
+                    case Direction.South:
+                        coords.Add(new MapCoordinates(origin.x, origin.y + 1));
+                        coords.Add(new MapCoordinates(origin.x, origin.y + 2));
+                        mountPoints.Add(new MapCoordinates(origin.x, origin.y + 3));
+                        roomPoints.Add(new MapCoordinates(origin.x + 1, origin.y + 1));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y + 1));
+                        break;
+                    case Direction.West:
+                        coords.Add(new MapCoordinates(origin.x - 1, origin.y));
+                        coords.Add(new MapCoordinates(origin.x - 2, origin.y));
+                        mountPoints.Add(new MapCoordinates(origin.x - 3, origin.y));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y + 1));
+                        roomPoints.Add(new MapCoordinates(origin.x - 1, origin.y - 1));
+                        break;
+                }
+                break;
+
+            case 8: // starting room
                 switch (direction)
                 {
                     case Direction.North:
