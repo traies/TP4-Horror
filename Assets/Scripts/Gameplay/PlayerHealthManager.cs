@@ -13,7 +13,7 @@ public class PlayerHealthManager : MonoBehaviour {
 
 	private int _healthPacks;
 	public int InitialHealthPacks;
-	
+
 	public AudioSource UseHealthPackSound;
 	public AudioSource NoHealthPackSound;
 	public AudioSource DeathSound;
@@ -30,14 +30,14 @@ public class PlayerHealthManager : MonoBehaviour {
 		_playerManager = GetComponent<PlayerManager>();
 		_healthPacks = InitialHealthPacks;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		HealthBar.fillAmount = _hp / HealthPoints;
 		HealthPacksUI.text = _healthPacks.ToString();
 		if(Input.GetButtonDown("UseHealthPack")) {
 			if (_hp < HealthPoints && _healthPacks > 0) {
-				// Use health pack	
+				// Use health pack
 				UseHealthPackSound.Play();
 				_healthPacks--;
 				_hp = HealthPoints;
@@ -89,5 +89,9 @@ public class PlayerHealthManager : MonoBehaviour {
 
 	public void AddHealthPack() {
 		_healthPacks++;
+	}
+
+	public float GetHealthNormalized() {
+		return _hp / HealthPoints;
 	}
 }

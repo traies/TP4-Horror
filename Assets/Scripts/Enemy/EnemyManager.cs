@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour {
 	private Animator _animator;
 	private EnemyState _state;
 
-	public float AwarenessRaidus;
+	public float AwarenessRadius, InitialAwarenessRadius;
 	public float AttackRadius;
 	public float HitRadius;
 	public float AnimationSpeedRandomizationMin, AnimationSpeedRandomizationMax;
@@ -28,6 +28,7 @@ public class EnemyManager : MonoBehaviour {
 	public List<Collider> Limbs;
 	private LayerMask _mask;
 	private Collider _playerCollision;
+	private GlobalEnemyManager _globalEnemyManager;
 	// Use this for initialization
 	void Start () {
 		_agent = GetComponent<NavMeshAgent>();
@@ -42,6 +43,7 @@ public class EnemyManager : MonoBehaviour {
 		_playerCollision = GetComponent<Collider>();
 		_animator.speed *= Random.value * (AnimationSpeedRandomizationMax - AnimationSpeedRandomizationMin) + AnimationSpeedRandomizationMin;
 		_mask = LayerMask.GetMask("Player");
+		_globalEnemyManager = GameObject.FindObjectOfType<GlobalEnemyManager>();
 	}
 
 	public enum EnemyState {
@@ -50,16 +52,17 @@ public class EnemyManager : MonoBehaviour {
 		ATTACKING,
 		DEAD
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
 		var distanceToPlayer = (transform.position - _player.transform.position).magnitude;
 		switch (_state) {
 			case EnemyState.IDLE: {
-				if (distanceToPlayer < AwarenessRaidus) {
-					_agent.destination = 	_player.transform.position;
+				if (distanceToPlayer < InitialAwarenessRadius) {
+					_agent.destination = _player.transform.position;
 					_state = EnemyState.FOLLOWING;
+					_globalEnemyManager.AddAware();
 				}
 				break;
 			}
@@ -67,15 +70,17 @@ public class EnemyManager : MonoBehaviour {
 
 				Collider aux;
 				if (CheckPlayerProximity(out aux)) {
+					transform.LookAt(_player.transform);
 					_animator.SetTrigger("Attack");
 					_state = EnemyState.ATTACKING;
 					_hitOnAnimation = true;
 					_agent.isStopped = true;
 				} else {
-					if (distanceToPlayer < AwarenessRaidus) {
+					if (distanceToPlayer < AwarenessRadius) {
 						_agent.destination = _player.transform.position;
 					} else {
 						_state = EnemyState.IDLE;
+						_globalEnemyManager.RemoveAware();
 					}
 					_animator.SetFloat("Walk",1);
 				}
@@ -83,7 +88,7 @@ public class EnemyManager : MonoBehaviour {
 			}
 			case EnemyState.ATTACKING: {
 				var animationState = _animator.GetCurrentAnimatorStateInfo(0);
-				
+
 				if (animationState.IsName("Attack")) {
 					if (animationState.normalizedTime >= 0.4 && animationState.normalizedTime <= 0.6  && _hitOnAnimation) {
 						if (CheckPlayerHit()) {
@@ -138,6 +143,9 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public void Die() {
+		if (_state != EnemyState.IDLE) {
+			_globalEnemyManager.RemoveAware();
+		}
 		_state = EnemyState.DEAD;
 		_healthManager.enabled = false;
 		_zombieSounds.enabled = false;
