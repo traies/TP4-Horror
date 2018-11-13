@@ -513,6 +513,26 @@ Prefab:
       propertyPath: Crosshairs
       value: 
       objectReference: {fileID: 1035933290}
+    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadCanvas
+      value: 
+      objectReference: {fileID: 1858532324}
+    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadImage
+      value: 
+      objectReference: {fileID: 1298846377}
+    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadCanvas
+      value: 
+      objectReference: {fileID: 1858532324}
+    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadImage
+      value: 
+      objectReference: {fileID: 1298846377}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
   m_IsPrefabAsset: 0
@@ -574,6 +594,12 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 223711648772397380, guid: 42640f15a6598de41b1d38e021f17f3a,
     type: 2}
   m_PrefabInternal: {fileID: 374143233}
+--- !u!114 &1298846377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114494819053990332, guid: 42640f15a6598de41b1d38e021f17f3a,
+    type: 2}
+  m_PrefabInternal: {fileID: 374143233}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1433777622 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114458277167615630, guid: 42640f15a6598de41b1d38e021f17f3a,
@@ -638,6 +664,11 @@ Transform:
 --- !u!223 &1808270465 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 223239928216101118, guid: 42640f15a6598de41b1d38e021f17f3a,
+    type: 2}
+  m_PrefabInternal: {fileID: 374143233}
+--- !u!223 &1858532324 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 223906119707660302, guid: 42640f15a6598de41b1d38e021f17f3a,
     type: 2}
   m_PrefabInternal: {fileID: 374143233}
 --- !u!114 &2004550930 stripped
