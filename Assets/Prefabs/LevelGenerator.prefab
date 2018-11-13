@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1658323288444262}
+  m_IsPrefabAsset: 1
+--- !u!1 &1658323288444262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4968283152098844}
+  - component: {fileID: 114971791597307732}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4968283152098844
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658323288444262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114971791597307732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658323288444262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d78fa6499e514449ecf4d6d6b36d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunks:
+  - {fileID: 1128462121957222, guid: b8a16f7d2a3f10042a24bd1931b57fe1, type: 2}
+  - {fileID: 1050805690535300, guid: 08665bb4f1db82141896c3112565714e, type: 2}
+  - {fileID: 1378101274761504, guid: 19badffc86c67f5438c5164d77712b2d, type: 2}
+  - {fileID: 1992110932580800, guid: 0211d1fc4f53bbb43a16df1d731cb194, type: 2}
+  - {fileID: 1235315637888648, guid: b65c66f1ecbf9b04c8e76df60708cc68, type: 2}
+  - {fileID: 1327446838036982, guid: 9643b3366cd6ac443912939e1ecffc35, type: 2}
+  - {fileID: 1450326853235690, guid: 99787fa06e180d740927a05e0c32c1b0, type: 2}
+  - {fileID: 1739607670418870, guid: f4912848145167b438e00ce23fccbfab, type: 2}
+  startingRoom: {fileID: 1719171682764722, guid: 0bbbba5f550dae047a63e7a49bd3b845,
+    type: 2}
+  nbOfRooms: 10
+  roomSpawnRate: 0.2
+  mapSideDimension: 25
+  decreaseRate: 0.3
