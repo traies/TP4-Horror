@@ -22,13 +22,19 @@ public class WeaponSwitchManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	void ChangeWeapons() {
+		Weapons[_current].TurnAnimationsOff();
+		Weapons[_current].gameObject.SetActive(false);
+		_current = _current + 1 == Weapons.Count ? 0 : _current + 1;
+		Weapons[_current].gameObject.SetActive(true);
+		Weapons[_current].ResetAnimations();
+	}
+
 	void Update () {
 		if(Input.GetButtonDown("SwitchWeapons")) {
-			Weapons[_current].TurnAnimationsOff();
-			Weapons[_current].gameObject.SetActive(false);
-			_current = _current + 1 == Weapons.Count ? 0 : _current + 1;
-			Weapons[_current].gameObject.SetActive(true);
-			Weapons[_current].ResetAnimations();
+			do {
+				ChangeWeapons();
+			} while (Weapons[_current].EmptyClip());
 		}
 	}
 	

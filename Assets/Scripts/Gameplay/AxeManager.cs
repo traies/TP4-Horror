@@ -94,4 +94,7 @@ public class AxeManager : IGenericWeaponManager {
 		GunCamera.transform.Rotate(GunCameraAdjustment, -20f);
 	}
 
+	public override bool EmptyClip() {
+		return false;
+	}
 }

@@ -11,8 +11,8 @@ public class ZombieHands : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		if (EnemyManager.GetState() == EnemyManager.EnemyState.ATTACKING && collider.tag == "Player") {
-			EnemyManager.Hit();
-		}
+		// if (EnemyManager.GetState() == EnemyManager.EnemyState.ATTACKING && collider.tag == "Player") {
+		// 	EnemyManager.Hit();
+		// }
 	}
 }

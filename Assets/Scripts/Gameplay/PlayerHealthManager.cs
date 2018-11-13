@@ -18,6 +18,9 @@ public class PlayerHealthManager : MonoBehaviour {
 	public AudioSource NoHealthPackSound;
 	public AudioSource DeathSound;
 	public TextMeshProUGUI HealthPacksUI;
+	public Camera PlayerCamera;
+	public int HitSmoothFrames;
+	public float HitDesviation;
 	private bool dead;
 
 	// Use this for initialization
@@ -59,8 +62,29 @@ public class PlayerHealthManager : MonoBehaviour {
 			if (_hp <= 0) {
 				dead = true;
 				DeathAnimation();
+			} else {
+				// Camera alteration
+				// PlayerCamera.transform.Rotate();
+				StartCoroutine(HitCameraImpact());
 			}
 		}
+	}
+
+	private IEnumerator HitCameraImpact() {
+		var randomVec = Random.insideUnitSphere;
+		randomVec.z = 0;
+		for (int i = 0; i < HitSmoothFrames; i++) {
+			if (dead) {
+				break;
+			}
+			PlayerCamera.transform.Rotate((randomVec / HitSmoothFrames) * (HitSmoothFrames - i) * HitDesviation);
+			yield return null;
+		}
+		// Camera.transform.Rotate(Vector3.left * RecoilAmount * RecoilSmoothness);
+		// for (int i = 1; i <= RecoilAmount; i++) {
+		// 	yield return null;
+		// 	Camera.transform.Rotate(Vector3.left * (RecoilAmount - i) * RecoilSmoothness);
+		// }
 	}
 
 	public void AddHealthPack() {

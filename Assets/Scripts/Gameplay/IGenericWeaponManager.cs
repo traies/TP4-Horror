@@ -6,4 +6,5 @@ public abstract class  IGenericWeaponManager : MonoBehaviour
 {
 	public abstract void ResetAnimations();	
 	public abstract void TurnAnimationsOff();
+	public abstract bool EmptyClip();
 } 

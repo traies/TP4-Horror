@@ -123,4 +123,8 @@ public class ShootManager : IGenericWeaponManager {
 		_aimManager.ResetAiming();
 		GunCamera.transform.Rotate(GunCameraAdjustment, -GunCameraAdjustmentAngle);
 	}
+
+	public override bool EmptyClip() {
+		return !_weaponManager.HasBullets();
+	}
 }

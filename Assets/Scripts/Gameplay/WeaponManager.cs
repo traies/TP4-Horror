@@ -16,6 +16,10 @@ public class WeaponManager : MonoBehaviour {
 		_bulletsLoaded = BulletClipSize;
 		_bulletsRemaining = InitialBullets;	
 	}
+
+	public bool HasBullets() {
+		return _bulletsLoaded > 0 || _bulletsRemaining > 0;
+	}
 	
 	// Update is called once per frame
 	void Update () {

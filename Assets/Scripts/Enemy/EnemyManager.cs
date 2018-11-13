@@ -9,7 +9,6 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour {
 	private NavMeshAgent _agent;
 	private Animator _animator;
-	public Transform Player;
 	private EnemyState _state;
 
 	public float AwarenessRaidus;
@@ -27,6 +26,8 @@ public class EnemyManager : MonoBehaviour {
 	private ZombieSoundManager _zombieSounds;
 	private Rigidbody _rb;
 	public List<Collider> Limbs;
+	private LayerMask _mask;
+	private Collider _playerCollision;
 	// Use this for initialization
 	void Start () {
 		_agent = GetComponent<NavMeshAgent>();
@@ -37,7 +38,10 @@ public class EnemyManager : MonoBehaviour {
 		_healthManager = GetComponent<HealthManager>();
 		_zombieSounds = GetComponent<ZombieSoundManager>();
 		_rb = GetComponent<Rigidbody>();
+		_player = GameObject.FindObjectOfType<PlayerHealthManager>();
+		_playerCollision = GetComponent<Collider>();
 		_animator.speed *= Random.value * (AnimationSpeedRandomizationMax - AnimationSpeedRandomizationMin) + AnimationSpeedRandomizationMin;
+		_mask = LayerMask.GetMask("Player");
 	}
 
 	public enum EnemyState {
@@ -50,11 +54,11 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		var distanceToPlayer = (transform.position - Player.position).magnitude;
+		var distanceToPlayer = (transform.position - _player.transform.position).magnitude;
 		switch (_state) {
 			case EnemyState.IDLE: {
 				if (distanceToPlayer < AwarenessRaidus) {
-					_agent.destination = 	Player.position;
+					_agent.destination = 	_player.transform.position;
 					_state = EnemyState.FOLLOWING;
 				}
 				break;
@@ -65,21 +69,35 @@ public class EnemyManager : MonoBehaviour {
 				if (CheckPlayerProximity(out aux)) {
 					_animator.SetTrigger("Attack");
 					_state = EnemyState.ATTACKING;
+					_hitOnAnimation = true;
 					_agent.isStopped = true;
+				} else {
+					if (distanceToPlayer < AwarenessRaidus) {
+						_agent.destination = _player.transform.position;
+					} else {
+						_state = EnemyState.IDLE;
+					}
+					_animator.SetFloat("Walk",1);
 				}
-
-				if (distanceToPlayer < AwarenessRaidus) {
-					_agent.destination = Player.position;
-				}
-				_animator.SetFloat("Walk",1);
 				break;
 			}
 			case EnemyState.ATTACKING: {
-				var animationState = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-				if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animationState >= 1) {
-					_state = EnemyState.FOLLOWING;
-					_agent.isStopped = false;
-					_hitOnAnimation = false;
+				var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+				
+				if (animationState.IsName("Attack")) {
+					if (animationState.normalizedTime >= 0.4 && animationState.normalizedTime <= 0.6  && _hitOnAnimation) {
+						if (CheckPlayerHit()) {
+							Hit();
+							Debug.Log("Hitting");
+							_hitOnAnimation = false;
+						}
+					}
+					if (animationState.normalizedTime >= 1) {
+						_animator.SetTrigger("ResetFollowing");
+						_state = EnemyState.FOLLOWING;
+						_agent.isStopped = false;
+						_hitOnAnimation = false;
+					}
 				}
 				break;
 			}
@@ -96,7 +114,7 @@ public class EnemyManager : MonoBehaviour {
 		var position = transform.position;
 		position.y += 1;
 		RaycastHit hit;
-		if (Physics.Raycast(position, transform.forward, out hit, HitRadius)) {
+		if (Physics.Raycast(position, transform.forward, out hit, AttackRadius, _mask)) {
 			if ( hit.collider.tag == "Player") {
 				collider = hit.collider;
 				return true;
@@ -106,11 +124,25 @@ public class EnemyManager : MonoBehaviour {
 		return false;
 	}
 
+	private bool CheckPlayerHit()
+	{
+		var position = transform.position;
+		position.y += 1;
+		RaycastHit hit;
+		if (Physics.Raycast(position, transform.forward, out hit, HitRadius, _mask)) {
+			if (hit.collider.tag == "Player") {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void Die() {
 		_state = EnemyState.DEAD;
 		_healthManager.enabled = false;
 		_zombieSounds.enabled = false;
 		_agent.enabled = false;
+		_playerCollision.enabled = false;
 		foreach(var collider in Limbs) {
 			collider.enabled = false;
 		}

@@ -7,11 +7,12 @@ public class PlayerManager : MonoBehaviour {
 
 	private PickUpManager _pickUp;
 	PlayerHealthManager _playerHealth;
-	public UnityStandardAssets.Characters.FirstPerson.FirstPersonController FirstPersonController;
+	private UnityStandardAssets.Characters.FirstPerson.FirstPersonController FirstPersonController;
 	private bool _isAiming;
 	// Use this for initialization
 	void Start () {
 		_pickUp = GetComponent<PickUpManager>();
+		FirstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 	}
 	
 	// Update is called once per frame

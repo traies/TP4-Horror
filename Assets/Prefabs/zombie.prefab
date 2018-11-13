@@ -563,7 +563,8 @@ GameObject:
   - component: {fileID: 82364434195205548}
   - component: {fileID: 195928629696319746}
   - component: {fileID: 114987550627832182}
-  m_Layer: 11
+  - component: {fileID: 136921121730071792}
+  m_Layer: 12
   m_Name: zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3399,7 +3400,7 @@ Transform:
   m_GameObject: {fileID: 1300697356656178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.6305213, y: 0, z: -1.7142955}
-  m_LocalScale: {x: 1, y: 1, z: 0.950036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4418833637603038}
   - {fileID: 4082312421273482}
@@ -4408,10 +4409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7228c1bd45c31dd468fdbf799d5de644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   AwarenessRaidus: 10
-  AttackRadius: 2
-  HitRadius: 1
+  AttackRadius: 1
+  HitRadius: 2
   AnimationSpeedRandomizationMin: 0.8
   AnimationSpeedRandomizationMax: 1.2
   _player: {fileID: 0}
@@ -4560,6 +4560,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyManager: {fileID: 114236906227998260}
+--- !u!136 &136921121730071792
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300697356656178}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.23748106
+  m_Height: 1.8244879
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9251952, z: 0.026925147}
 --- !u!137 &137123291608495056
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
