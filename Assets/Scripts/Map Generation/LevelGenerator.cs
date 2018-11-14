@@ -683,7 +683,6 @@ public class LevelGenerator : MonoBehaviour
         {
             accumalatedProbability += _spawnRates[i];
             if (randomNbInPool <= accumalatedProbability)
-                //return chunks[i].GetComponent<Chunks>().id;
                 return i;
         }
         return 0;

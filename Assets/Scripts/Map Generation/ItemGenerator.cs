@@ -1,39 +1,46 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemGenerator : MonoBehaviour
 {
     public GameObject[] items;
+    public float decreaseRate;
+    public int NbItemsEasy;
+    public int NbItemsNormal;
+    public int NbItemsHard;
 
     private List<GameObject> _items;
     private List<KeyValuePair<Transform, GameObject>> _dropPositions;
     private List<GameObject> _rooms;
-    private int numberOfItems = 1;
+    private int _numberOfItems;
+    private GameManager _gameManager;
+    private List<int> _spawnRates;
 
     public void GenerateItems()
     {
+        _gameManager = FindObjectOfType<GameManager>();
+        _spawnRates = GetInitialSpawnRates();
         _rooms = GetMapRooms();
         _dropPositions = GetMapDropPositions();
+        _dropPositions = Shuffle(_dropPositions);
         _items = new List<GameObject>();
+        _numberOfItems = SetNumberOfItems(_gameManager.difficulty);
 
         GameObject item;
         GameObject room;
         Transform dropPosition;
         KeyValuePair<Transform, GameObject> localisation;
-        float dropRate;
 
-        while (_items.Count < numberOfItems && AnyPositionAvailable())
+        while (_items.Count < _numberOfItems && AnyPositionAvailable())
         {
-            item = ChooseItem();
+            //item = ChooseItem();
+            item = ChooseFromPoolSize();
             localisation = ChooseDropPosition();
             dropPosition = localisation.Key;
             room = localisation.Value;
-            dropRate = item.GetComponent<Item>().dropRate;
-            if (Random.value <= dropRate)
-            {
-                DropItem(room, dropPosition, item);
-            }
+            DropItem(room, dropPosition, item);
         }
     }
 
@@ -91,7 +98,7 @@ public class ItemGenerator : MonoBehaviour
     private GameObject ChooseItem()
     {
         int range = items.Length;
-        int index = (int)(Random.value * range - 0.1);
+        int index = (int)(UnityEngine.Random.value * range - 0.1);
         return items[index];
     }
 
@@ -101,5 +108,77 @@ public class ItemGenerator : MonoBehaviour
         instantiatedItem.transform.parent = room.transform;
         instantiatedItem.transform.position = dropPosition.position;
         _items.Add(instantiatedItem);
+    }
+
+    private int SetNumberOfItems (Difficulty difficulty)
+    {
+        int res;
+        switch (difficulty)
+        {
+            case Difficulty.Easy:
+                res = NbItemsEasy;
+                break;
+            case Difficulty.Hard:
+                res = NbItemsHard;
+                break;
+            default:
+                res = NbItemsNormal;
+                break;
+        }
+        return res;
+    }
+
+    private List<KeyValuePair<Transform, GameObject>> Shuffle (List<KeyValuePair<Transform, GameObject>> list)
+    {
+        System.Random rng = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            KeyValuePair<Transform, GameObject> value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+        return list;
+    }
+
+    private GameObject ChooseFromPoolSize()
+    {
+        int id = 0;
+        int poolSize = 0;
+        for (int i = 0; i < items.Length; i++)
+        {
+            poolSize += _spawnRates[i];
+        }
+        int randomNbInPool = (int)UnityEngine.Random.Range(0, poolSize);
+        int accumalatedProbability = 0;
+        for (int i = 0; i < items.Length; i++)
+        {
+            accumalatedProbability += _spawnRates[i];
+            if (randomNbInPool <= accumalatedProbability)
+            {
+                id = i;
+                break;
+            }
+        }
+        UpdateSpawnRate(id);
+        return items[id];
+    }
+
+    private void UpdateSpawnRate(int id)
+    {
+        int spawnRate = _spawnRates[id];
+        _spawnRates[id] -= (int)(decreaseRate * spawnRate);
+    }
+
+    private List<int> GetInitialSpawnRates()
+    {
+        List<int> spawnRates = new List<int>();
+        for (int i = 0; i < items.Length; i++)
+        {
+            spawnRates.Add(items[i].GetComponent<Item>().dropRate);
+        }
+        return spawnRates;
     }
 }

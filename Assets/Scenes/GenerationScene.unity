@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7c10de7d17f9e4381807347cdeb2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 1
 --- !u!4 &112525442
 Transform:
   m_ObjectHideFlags: 0
@@ -384,6 +385,16 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114341873672965154, guid: 42640f15a6598de41b1d38e021f17f3a,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114030313768645954, guid: 42640f15a6598de41b1d38e021f17f3a,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114030313768645954, guid: 42640f15a6598de41b1d38e021f17f3a,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -563,7 +574,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bd8a8f6416c4e4d9b978aa7f9f5897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 1339267216711820, guid: 9c64f08c84e593447bdf978b829b8e1a, type: 2}
+  - {fileID: 1470671020238954, guid: 8ee16049f8f302e44b4be3e7f708671f, type: 2}
+  - {fileID: 1723613046198514, guid: e8cf605119cd23947b804ca564ce89b4, type: 2}
+  decreaseRate: 0.3
+  NbItemsEasy: 9
+  NbItemsNormal: 6
+  NbItemsHard: 3
 --- !u!4 &773403063
 Transform:
   m_ObjectHideFlags: 0
