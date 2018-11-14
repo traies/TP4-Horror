@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
+//[ExecuteInEditMode]
 public class GameManager : MonoBehaviour
 {
     private LevelGenerator levelGenerator;
     private ItemGenerator itemGenerator;
 
-    void Start ()
+    void Awake ()
     {
         levelGenerator = FindObjectOfType<LevelGenerator>();
         itemGenerator = FindObjectOfType<ItemGenerator>();
