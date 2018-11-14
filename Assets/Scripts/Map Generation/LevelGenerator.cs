@@ -52,6 +52,7 @@ public class LevelGenerator : MonoBehaviour
         rotY = 0;
         int rand;
         bool added;
+        bool conditionsSatisfied;
 
         GenerateLevelBasicStructure();
 
@@ -59,53 +60,61 @@ public class LevelGenerator : MonoBehaviour
         {
             do
             {
-                rand = GetRandomChunk();
-                added = GenerateChunk(rand);
-                if (cache.Count < chunks.Length && added)
+                do
                 {
-                    //_parentChunk.GetComponent<MountPoint>().available = false;
-                    _chunks.Add(newChunk);
+                    rand = GetRandomChunk();
+                    added = GenerateChunk(rand);
+                    if (cache.Count < chunks.Length && added)
+                    {
+                        //_parentChunk.GetComponent<MountPoint>().available = false;
+                        _chunks.Add(newChunk);
 
-                    if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
-                    {
-                        UpdateSpawnRate(rand);
-                    }
+                        if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
+                        {
+                            UpdateSpawnRate(rand);
+                        }
 
-                    if (IsThereRoomMountingPoints(newChunk))
-                    {
-                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
-                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
-                        Direction tempDir = UpdateDirection(direction, mountTransform);
-                        if (GenerateRoom(5, origin, mountTransform, tempDir))
-                            newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
+                        if (IsThereRoomMountingPoints(newChunk))
+                        {
+                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
+                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
+                            Direction tempDir = UpdateDirection(direction, mountTransform);
+                            if (GenerateRoom(5, origin, mountTransform, tempDir))
+                                newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
+                        }
+                        if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
+                        {
+                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
+                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
+                            Direction tempDir = UpdateDirection(direction, mountTransform);
+                            if (GenerateRoom(5, origin, mountTransform, tempDir))
+                                newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
+                        }
                     }
-                    if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
+                    else if (cache.Count == chunks.Length)
                     {
-                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
-                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
-                        Direction tempDir = UpdateDirection(direction, mountTransform);
-                        if (GenerateRoom(5, origin, mountTransform, tempDir))
-                            newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
+                        ClearCache();
+                        _unMountedPoints.Add(_currentPoint);
+                        break;
                     }
-                }
-                else if (cache.Count == chunks.Length)
+                } while (!added);
+            } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
+
+            conditionsSatisfied = CountNumberOfRooms() > nbOfRooms;
+            // if one of the condition is not fullfiled then restart the process
+            if (!conditionsSatisfied)
+            {
+                //SceneManager.LoadScene("GenerationScene");
+                foreach (Transform child in transform)
                 {
-                    ClearCache();
-                    _unMountedPoints.Add(_currentPoint);
-                    break;
+                    child.transform.parent = null;
                 }
-            } while (!added);
-        } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
+            }
+            Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
 
-        // if one of the condition is not fullfiled then restart the process
-        if (CountNumberOfRooms() < nbOfRooms)
-        {
-            SceneManager.LoadScene("GenerationScene");
-        }
-        Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
-
-        // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
-        CloseCorridors();
+            // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
+            CloseCorridors();
+        } while (!conditionsSatisfied);
     }
 
     // We have to "close" the map = instantiate a wall at each mountPoint that wasn't used ( available = true )
