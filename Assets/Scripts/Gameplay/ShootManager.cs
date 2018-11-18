@@ -86,6 +86,7 @@ public class ShootManager : IGenericWeaponManager {
 					// Put bullet hole.
 					var bullet = _bulletPool.GetSprite();
 					bullet.transform.SetPositionAndRotation(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+					bullet.transform.SetParent(hit.collider.transform);
 				}
 				var particleSystem = particlePool.GetParticleSystem();
 				particleSystem.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
