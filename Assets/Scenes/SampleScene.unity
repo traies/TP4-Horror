@@ -1290,11 +1290,6 @@ Prefab:
       propertyPath: HealthPacksUI
       value: 
       objectReference: {fileID: 575433931}
-    - target: {fileID: 114839597337330044, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ShootingTimeout
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
   m_IsPrefabAsset: 0

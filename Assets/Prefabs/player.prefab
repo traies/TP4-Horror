@@ -4068,7 +4068,9 @@ MonoBehaviour:
   PlayerManager: {fileID: 114637740405925208}
   AnimationLayer: 3
   GunCameraAdjustment: {x: -28, y: -30, z: -7}
-  DamageMultiplier: 10
+  DamageMultiplier: 1
+  DeviationRadius: 0.1
+  Shells: 6
   RecoilAmount: 200
   RecoilSmoothness: 0.05
   FOVAdjustment: 75
@@ -4095,6 +4097,8 @@ MonoBehaviour:
   AnimationLayer: 1
   GunCameraAdjustment: {x: 0, y: 0, z: 0}
   DamageMultiplier: 1
+  DeviationRadius: 0
+  Shells: 1
   RecoilAmount: 50
   RecoilSmoothness: 0.1
   FOVAdjustment: 60
@@ -4197,7 +4201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb584ee42430314e9c8a0df8b07b741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialBullets: 15
+  InitialBullets: 100
   BulletClipSize: 4
   RemainingBulletsUI: {fileID: 0}
   ClipBulletsUI: {fileID: 0}
@@ -4473,7 +4477,7 @@ MonoBehaviour:
   PlayerManager: {fileID: 114637740405925208}
   Camera: {fileID: 20193557779296128}
   _timeSinceLastShot: 0
-  ShootingTimeout: 0.5
+  ShootingTimeout: 0.6
   Range: 2
   BodyHitSound: {fileID: 8300000, guid: 97cb1199f33074ead900715f9db9c6f3, type: 3}
   SurfaceHitSound: {fileID: 8300000, guid: 4ae4fe17d19c04e10920bfaca3bd8290, type: 3}
