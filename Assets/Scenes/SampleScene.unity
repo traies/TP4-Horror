@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1371643, g: 0.1562567, b: 0.18629497, a: 0.1}
+  m_IndirectSpecularColor: {r: 0.1371642, g: 0.15625647, b: 0.18629473, a: 0.1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4273667948929752, guid: fb084092d49d9c945afd49c6862a8fb7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.54
+      value: 1.1786
       objectReference: {fileID: 0}
     - target: {fileID: 4273667948929752, guid: fb084092d49d9c945afd49c6862a8fb7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -151,6 +151,45 @@ Prefab:
     - target: {fileID: 4273667948929752, guid: fb084092d49d9c945afd49c6862a8fb7, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 54040453134046004, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54040453134046004, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54040453134046004, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 54040453134046004, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272641236748064, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: PlayerDistance
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4273667948929752, guid: fb084092d49d9c945afd49c6862a8fb7, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2.3381338
+      objectReference: {fileID: 0}
+    - target: {fileID: 208959690186137648, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_Extents.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 208959690186137648, guid: fb084092d49d9c945afd49c6862a8fb7,
+        type: 2}
+      propertyPath: m_Carve
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb084092d49d9c945afd49c6862a8fb7, type: 2}
@@ -645,7 +684,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4733380616107286, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.6305213
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 4733380616107286, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -680,6 +719,16 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 152202849}
+    - target: {fileID: 82683382078901086, guid: 1f08b1a79d98fd24ea953c06a91a3b3a,
+        type: 2}
+      propertyPath: Pan2D
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82683382078901086, guid: 1f08b1a79d98fd24ea953c06a91a3b3a,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.67
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
   m_IsPrefabAsset: 0
@@ -1156,11 +1205,6 @@ Prefab:
       propertyPath: BatteriesText
       value: 
       objectReference: {fileID: 1636313013}
-    - target: {fileID: 114587537527034986, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: OpenDoorPrompt
-      value: 
-      objectReference: {fileID: 896818066}
     - target: {fileID: 114840856186600032, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: PickUpPrompt
@@ -1171,11 +1215,6 @@ Prefab:
       propertyPath: PickUpItemName
       value: 
       objectReference: {fileID: 502843825}
-    - target: {fileID: 114473928680367270, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: Crosshairs
-      value: 
-      objectReference: {fileID: 252452381}
     - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: ReloadCanvas
@@ -1186,6 +1225,31 @@ Prefab:
       propertyPath: ReloadImage
       value: 
       objectReference: {fileID: 299562652}
+    - target: {fileID: 114587537527034986, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: OpenDoorPrompt
+      value: 
+      objectReference: {fileID: 896818066}
+    - target: {fileID: 114473928680367270, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: Crosshairs
+      value: 
+      objectReference: {fileID: 252452381}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: RemainingBulletsUI
+      value: 
+      objectReference: {fileID: 261667294}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ClipBulletsUI
+      value: 
+      objectReference: {fileID: 1010816630}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: BulletsCanvas
+      value: 
+      objectReference: {fileID: 1279267238}
     - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: RemainingBulletsUI
@@ -1216,21 +1280,6 @@ Prefab:
       propertyPath: ReloadImage
       value: 
       objectReference: {fileID: 299562652}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: RemainingBulletsUI
-      value: 
-      objectReference: {fileID: 261667294}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ClipBulletsUI
-      value: 
-      objectReference: {fileID: 1010816630}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: BulletsCanvas
-      value: 
-      objectReference: {fileID: 1279267238}
     - target: {fileID: 114891339244595334, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: HealthBar
@@ -1387,21 +1436,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114236906227998260, guid: 1f08b1a79d98fd24ea953c06a91a3b3a,
         type: 2}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114236906227998260, guid: 1f08b1a79d98fd24ea953c06a91a3b3a,
-        type: 2}
       propertyPath: _player
       value: 
       objectReference: {fileID: 152202849}
     - target: {fileID: 1300697356656178, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
       propertyPath: m_Name
       value: zombie (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1300697356656178, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f08b1a79d98fd24ea953c06a91a3b3a, type: 2}

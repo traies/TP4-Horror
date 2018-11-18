@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
 
 	private AudioSource _HitSound;
 	private bool _hitOnAnimation;
-	public float HitDamage;
+	public float HitDamage, LookAtDistance, LookAtSmoothRotation;
 
 	private HealthManager _healthManager;
 	private ZombieSoundManager _zombieSounds;
@@ -57,6 +57,7 @@ public class EnemyManager : MonoBehaviour {
 	void Update ()
 	{
 		var distanceToPlayer = (transform.position - _player.transform.position).magnitude;
+
 		switch (_state) {
 			case EnemyState.IDLE: {
 				if (distanceToPlayer < InitialAwarenessRadius) {
@@ -69,8 +70,11 @@ public class EnemyManager : MonoBehaviour {
 			case EnemyState.FOLLOWING: {
 
 				Collider aux;
+				if (distanceToPlayer < LookAtDistance) {
+					var targetRotation = Quaternion.LookRotation(_player.transform.position - transform.position);
+					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, LookAtSmoothRotation * Time.deltaTime);
+				}
 				if (CheckPlayerProximity(out aux)) {
-					transform.LookAt(_player.transform);
 					_animator.SetTrigger("Attack");
 					_state = EnemyState.ATTACKING;
 					_hitOnAnimation = true;
@@ -82,7 +86,7 @@ public class EnemyManager : MonoBehaviour {
 						_state = EnemyState.IDLE;
 						_globalEnemyManager.RemoveAware();
 					}
-					_animator.SetFloat("Walk",1);
+					_animator.SetFloat("Walk", _agent.velocity.magnitude / _agent.speed);
 				}
 				break;
 			}
@@ -109,6 +113,11 @@ public class EnemyManager : MonoBehaviour {
 			case EnemyState.DEAD: {
 				break;
 			}
+		}
+		var worldDeltaPosition = _agent.nextPosition - transform.position;
+		// Pull agent towards character
+		if (worldDeltaPosition.magnitude > _agent.radius) {
+			_agent.nextPosition = transform.position - 0.9f*worldDeltaPosition;
 		}
 	}
 
@@ -172,5 +181,7 @@ public class EnemyManager : MonoBehaviour {
         Vector3 position = _animator.rootPosition;
         position.y = _agent.nextPosition.y;
         transform.position = position;
+
+				
     }
 }

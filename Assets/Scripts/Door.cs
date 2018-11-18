@@ -7,14 +7,19 @@ public class Door : MonoBehaviour {
 	private bool _opened;
 	private AudioSource _openDoorSound;
 	public Transform AnchorPoint;
-	public float OpeningFrames;
+	public float OpeningFrames, PlayerDistance;
 	private float _angleIncrement, _angle;
+	private bool _blocked;
+	private Collider _collider;
+	private LayerMask _mask;
 	// Use this for initialization
 	void Start () {
 			_hinge = GetComponent<HingeJoint>();
 			_openDoorSound = GetComponent<AudioSource>();
+			_collider = GetComponent<Collider>();
 			_opened = false;
 			_angleIncrement = 90 / OpeningFrames;
+			_mask = LayerMask.GetMask("Player");
 	}
 
 	public void Interact () {
@@ -34,13 +39,28 @@ public class Door : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	void UpdateDoor() {
 		if (_opened && _angle > -90) {
 			_angle -= _angleIncrement;
 			transform.RotateAround(AnchorPoint.position, Vector3.up, -_angleIncrement);
 		} else if (!_opened && _angle < 0) {
 			_angle += _angleIncrement;
 			transform.RotateAround(AnchorPoint.position, Vector3.up, _angleIncrement);
+		}
+	}
+	
+	void FixedUpdate() {
+		// Raycast player position.
+		var dir = _opened? -transform.right :  transform.right;
+		Debug.DrawRay(transform.position, dir, Color.red, 1);
+		if (!Physics.Raycast(transform.position, dir, PlayerDistance, _mask)) {
+			if (_opened && _angle > -90) {
+				_angle -= _angleIncrement;
+				transform.RotateAround(AnchorPoint.position, Vector3.up, -_angleIncrement);
+			} else if (!_opened && _angle < 0) {
+				_angle += _angleIncrement;
+				transform.RotateAround(AnchorPoint.position, Vector3.up, _angleIncrement);
+			}
 		}
 	}
 
@@ -57,5 +77,9 @@ public class Door : MonoBehaviour {
 		}
 	}
 
-
+	// void OnCollisionExit(Collision collision) {
+	// 	if (collision.collider.tag == "Player") {
+	// 		_blocked = false;
+	// 	}
+	// }
 }
