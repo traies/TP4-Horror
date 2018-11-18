@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 56b608344d638cf42abd058016978f51
+guid: 0a5fef73e614af541ab211d1d2ad3e57
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -180,7 +180,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Standing Torch Melee Attack 01
       takeName: mixamo.com
-      firstFrame: 0
+      firstFrame: 52
       lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0

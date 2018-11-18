@@ -4473,11 +4473,11 @@ MonoBehaviour:
   PlayerManager: {fileID: 114637740405925208}
   Camera: {fileID: 20193557779296128}
   _timeSinceLastShot: 0
-  ShootingTimeout: 1
+  ShootingTimeout: 0.5
   Range: 2
   BodyHitSound: {fileID: 8300000, guid: 97cb1199f33074ead900715f9db9c6f3, type: 3}
   SurfaceHitSound: {fileID: 8300000, guid: 4ae4fe17d19c04e10920bfaca3bd8290, type: 3}
-  HitDelay: 0.5
+  HitDelay: 0
   Swoosh: {fileID: 8300000, guid: 52fa067c25c5c401b811eb86d142287e, type: 3}
   FOVAdjustment: 60
   GunCameraAdjustment: {x: 18, y: 27, z: 0}
