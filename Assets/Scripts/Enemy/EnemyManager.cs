@@ -50,7 +50,8 @@ public class EnemyManager : MonoBehaviour {
 		IDLE,
 		FOLLOWING,
 		ATTACKING,
-		DEAD
+		DEAD,
+		HIT,
 	}
 
 	// Update is called once per frame
@@ -64,6 +65,8 @@ public class EnemyManager : MonoBehaviour {
 					_agent.destination = _player.transform.position;
 					_state = EnemyState.FOLLOWING;
 					_globalEnemyManager.AddAware();
+				} else {
+					_animator.SetFloat("Walk", 0);
 				}
 				break;
 			}
@@ -79,6 +82,7 @@ public class EnemyManager : MonoBehaviour {
 					_state = EnemyState.ATTACKING;
 					_hitOnAnimation = true;
 					_agent.isStopped = true;
+					_animator.SetFloat("Walk", 0);
 				} else {
 					if (distanceToPlayer < AwarenessRadius) {
 						_agent.destination = _player.transform.position;
@@ -97,16 +101,22 @@ public class EnemyManager : MonoBehaviour {
 					if (animationState.normalizedTime >= 0.4 && animationState.normalizedTime <= 0.6  && _hitOnAnimation) {
 						if (CheckPlayerHit()) {
 							Hit();
-							Debug.Log("Hitting");
-							_hitOnAnimation = false;
 						}
+						_hitOnAnimation = false;
 					}
-					if (animationState.normalizedTime >= 1) {
-						_animator.SetTrigger("ResetFollowing");
+				}
+				if (!_hitOnAnimation && animationState.IsName("Following")) {
 						_state = EnemyState.FOLLOWING;
 						_agent.isStopped = false;
 						_hitOnAnimation = false;
 					}
+				break;
+			}
+			case EnemyState.HIT: {
+				var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+				if (animationState.IsName("Following") && !_animator.GetBool("Hit")) {
+					_state = EnemyState.FOLLOWING;
+					_agent.isStopped = false;
 				}
 				break;
 			}
@@ -181,7 +191,14 @@ public class EnemyManager : MonoBehaviour {
         Vector3 position = _animator.rootPosition;
         position.y = _agent.nextPosition.y;
         transform.position = position;
-
-				
     }
+
+	public void EnemyIsHit() {
+		if (_state != EnemyState.DEAD) {
+			_state = EnemyState.HIT;
+			_animator.SetTrigger("Hit");
+			_agent.isStopped = true;
+			_animator.SetFloat("Walk", 0);
+		}
+	}
 }

@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 114204016496170638}
   - component: {fileID: 114473928680367270}
   - component: {fileID: 82800863019899530}
+  - component: {fileID: 114347656227421672}
   m_Layer: 9
   m_Name: Shotgun
   m_TagString: Untagged
@@ -1444,6 +1445,7 @@ GameObject:
   - component: {fileID: 114735408642813104}
   - component: {fileID: 114223165419282404}
   - component: {fileID: 114212956578192658}
+  - component: {fileID: 114570418423237106}
   m_Layer: 9
   m_Name: PistolNoClip
   m_TagString: Untagged
@@ -4222,6 +4224,20 @@ MonoBehaviour:
   RemainingBulletsUI: {fileID: 0}
   ClipBulletsUI: {fileID: 0}
   BulletsCanvas: {fileID: 0}
+--- !u!114 &114347656227421672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071006683635220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc026278edea6a4c86bb997d5218922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoolSize: 20
+  SpritePrefab: {fileID: 212878626596164634, guid: b0a324514b4b2744f8094120a957b6f9,
+    type: 2}
 --- !u!114 &114436625119058796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4390,6 +4406,20 @@ MonoBehaviour:
   ParticleSystemCount: 10
   ParticleSystemPrefab: {fileID: 198858841386093954, guid: ce4f137e4e09e844c86da8a4798e2534,
     type: 2}
+--- !u!114 &114570418423237106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967908288907262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc026278edea6a4c86bb997d5218922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PoolSize: 20
+  SpritePrefab: {fileID: 212878626596164634, guid: b0a324514b4b2744f8094120a957b6f9,
+    type: 2}
 --- !u!114 &114587537527034986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4478,14 +4508,14 @@ MonoBehaviour:
   Camera: {fileID: 20193557779296128}
   _timeSinceLastShot: 0
   ShootingTimeout: 0.6
-  Range: 2
+  Range: 1
   BodyHitSound: {fileID: 8300000, guid: 97cb1199f33074ead900715f9db9c6f3, type: 3}
   SurfaceHitSound: {fileID: 8300000, guid: 4ae4fe17d19c04e10920bfaca3bd8290, type: 3}
   HitDelay: 0
   Swoosh: {fileID: 8300000, guid: 52fa067c25c5c401b811eb86d142287e, type: 3}
   FOVAdjustment: 60
   GunCameraAdjustment: {x: 18, y: 27, z: 0}
-  DamageMultiplier: 0.5
+  DamageMultiplier: 0.2
 --- !u!114 &114840856186600032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4514,7 +4544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32957622705e3284da37aa9761c43791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthPoints: 1000
+  HealthPoints: 100
   HealthBar: {fileID: 0}
   InitialHealthPacks: 3
   UseHealthPackSound: {fileID: 82804734133083992}

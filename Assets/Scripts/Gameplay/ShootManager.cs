@@ -24,6 +24,7 @@ public class ShootManager : IGenericWeaponManager {
 	private AudioSource _audioSource;
 	public float DamageMultiplier, DeviationRadius;
 	public int Shells;
+	private SpritePool _bulletPool;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = PlayerManager.GetComponent<Animator>();
@@ -35,6 +36,7 @@ public class ShootManager : IGenericWeaponManager {
 		_mask = LayerMask.GetMask("Default", "Zombie", "Door");
 		_reloadManager = GetComponent<ReloadManager>();
 		_audioSource = GetComponent<AudioSource>();
+		_bulletPool = GetComponent<SpritePool>();
 	}
 	
 
@@ -80,6 +82,10 @@ public class ShootManager : IGenericWeaponManager {
 					particlePool = _bloodPool;
 				} else {
 					particlePool = _sparklesPool;
+
+					// Put bullet hole.
+					var bullet = _bulletPool.GetSprite();
+					bullet.transform.SetPositionAndRotation(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
 				}
 				var particleSystem = particlePool.GetParticleSystem();
 				particleSystem.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
