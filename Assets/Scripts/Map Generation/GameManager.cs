@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     private ItemGenerator _itemGenerator;
     public Difficulty difficulty;
 
-    void Start ()
+
+    [ContextMenu("Generate Map")]
+    void generateLevel ()
     {
         _levelGenerator = FindObjectOfType<LevelGenerator>();
         _itemGenerator = FindObjectOfType<ItemGenerator>();
