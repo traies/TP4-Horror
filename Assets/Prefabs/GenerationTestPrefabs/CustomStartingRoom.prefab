@@ -144,8 +144,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4854020028967134}
   - component: {fileID: 114525571074701330}
+  - component: {fileID: 114534412954811664}
   m_Layer: 0
-  m_Name: ItemPoint (2)
+  m_Name: DropPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,8 +371,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4081888488746740}
   - component: {fileID: 114003882961916126}
+  - component: {fileID: 114289377722564530}
   m_Layer: 0
-  m_Name: ItemPoint (1)
+  m_Name: DropPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,8 +579,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4989454078935396}
   - component: {fileID: 114922496567309654}
+  - component: {fileID: 114090168764771364}
   m_Layer: 0
-  m_Name: ItemPoint
+  m_Name: DropPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2954,6 +2957,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   available: 1
+--- !u!114 &114090168764771364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1921509386094048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a91def0f8221654aa824f8ca5941b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  available: 1
+--- !u!114 &114289377722564530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653345648886722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a91def0f8221654aa824f8ca5941b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  available: 1
 --- !u!114 &114478737839253348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2968,7 +2997,7 @@ MonoBehaviour:
   mountPoints:
   - {fileID: 4544335759077750}
   roomPoints: []
-  itemPoints:
+  dropPoints:
   - {fileID: 4989454078935396}
   - {fileID: 4081888488746740}
   - {fileID: 4854020028967134}
@@ -2987,6 +3016,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31599ec94ace6994c8e94b5f7db7e5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  available: 1
+--- !u!114 &114534412954811664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173970837634772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a91def0f8221654aa824f8ca5941b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
   available: 1
 --- !u!114 &114922496567309654
 MonoBehaviour:

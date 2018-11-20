@@ -1209,8 +1209,9 @@ GameObject:
   - component: {fileID: 195142369382486244}
   - component: {fileID: 114316832965762896}
   - component: {fileID: 136557018722381662}
+  - component: {fileID: 114553103787206948}
   m_Layer: 12
-  m_Name: zombie2
+  m_Name: zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4453,6 +4454,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyManager: {fileID: 114948025601468770}
+--- !u!114 &114553103787206948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536499520795320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aee44bed2434e74885fb94d046f5e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropRate: 100
+  type: 1
 --- !u!114 &114658153025685370
 MonoBehaviour:
   m_ObjectHideFlags: 1

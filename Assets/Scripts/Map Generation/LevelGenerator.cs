@@ -55,20 +55,17 @@ public class LevelGenerator : MonoBehaviour
         rotY = 0;
         int rand;
         bool added;
-        int tries = 10; // # of tries before ending the procedure
 
         DestroyAllChildren();
         GenerateLevelBasicStructure();
-
         do
-        {
+        { 
             do
             {
                 rand = GetRandomChunk();
                 added = GenerateChunk(rand);
                 if (cache.Count < chunks.Length && added)
                 {
-                    //_parentChunk.GetComponent<MountPoint>().available = false;
                     _chunks.Add(newChunk);
 
                     if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
@@ -84,6 +81,7 @@ public class LevelGenerator : MonoBehaviour
                         if (GenerateRoom(5, origin, mountTransform, tempDir))
                             newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
                     }
+
                     if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
                     {
                         mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
