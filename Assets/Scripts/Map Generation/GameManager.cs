@@ -2,14 +2,13 @@
 
 public enum Difficulty { Easy, Normal, Hard };
 
-//[ExecuteInEditMode]
 public class GameManager : MonoBehaviour
 {
     private LevelGenerator _levelGenerator;
     private ItemGenerator _itemGenerator;
     public Difficulty difficulty;
 
-    void Awake ()
+    void Start ()
     {
         _levelGenerator = FindObjectOfType<LevelGenerator>();
         _itemGenerator = FindObjectOfType<ItemGenerator>();

@@ -20,7 +20,7 @@ public class LevelGenerator : MonoBehaviour
     public float roomSpawnRate;
     public int mapSideDimension;
     public float decreaseRate;
-    
+
     //private parameters
     private float rotY;
     private List<int> cache;
@@ -52,7 +52,6 @@ public class LevelGenerator : MonoBehaviour
         rotY = 0;
         int rand;
         bool added;
-        bool conditionsSatisfied;
 
         GenerateLevelBasicStructure();
 
@@ -60,61 +59,53 @@ public class LevelGenerator : MonoBehaviour
         {
             do
             {
-                do
+                rand = GetRandomChunk();
+                added = GenerateChunk(rand);
+                if (cache.Count < chunks.Length && added)
                 {
-                    rand = GetRandomChunk();
-                    added = GenerateChunk(rand);
-                    if (cache.Count < chunks.Length && added)
+                    //_parentChunk.GetComponent<MountPoint>().available = false;
+                    _chunks.Add(newChunk);
+
+                    if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
                     {
-                        //_parentChunk.GetComponent<MountPoint>().available = false;
-                        _chunks.Add(newChunk);
-
-                        if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
-                        {
-                            UpdateSpawnRate(rand);
-                        }
-
-                        if (IsThereRoomMountingPoints(newChunk))
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (GenerateRoom(5, origin, mountTransform, tempDir))
-                                newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
-                        }
-                        if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (GenerateRoom(5, origin, mountTransform, tempDir))
-                                newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
-                        }
+                        UpdateSpawnRate(rand);
                     }
-                    else if (cache.Count == chunks.Length)
+
+                    if (IsThereRoomMountingPoints(newChunk))
                     {
-                        ClearCache();
-                        _unMountedPoints.Add(_currentPoint);
-                        break;
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        if (GenerateRoom(5, origin, mountTransform, tempDir))
+                            newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
                     }
-                } while (!added);
-            } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
-
-            conditionsSatisfied = CountNumberOfRooms() > nbOfRooms;
-            // if one of the condition is not fullfiled then restart the process
-            if (!conditionsSatisfied)
-            {
-                //SceneManager.LoadScene("GenerationScene");
-                foreach (Transform child in transform)
-                {
-                    child.transform.parent = null;
+                    if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
+                    {
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        if (GenerateRoom(5, origin, mountTransform, tempDir))
+                            newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
+                    }
                 }
-            }
-            Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
+                else if (cache.Count == chunks.Length)
+                {
+                    ClearCache();
+                    _unMountedPoints.Add(_currentPoint);
+                    break;
+                }
+            } while (!added);
+        } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
 
-            // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
-            CloseCorridors();
-        } while (!conditionsSatisfied);
+        // if one of the condition is not fullfiled then restart the process
+        if (CountNumberOfRooms() < nbOfRooms)
+        {
+            SceneManager.LoadScene("GenerationScene");
+        }
+        Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
+
+        // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
+        CloseCorridors();
     }
 
     // We have to "close" the map = instantiate a wall at each mountPoint that wasn't used ( available = true )
@@ -196,13 +187,13 @@ public class LevelGenerator : MonoBehaviour
 
     private bool IsThereRoomMountingPoints(GameObject chunk)
     {
-            foreach (Transform roomPoint in chunk.GetComponent<Chunks>().roomPoints)
+        foreach (Transform roomPoint in chunk.GetComponent<Chunks>().roomPoints)
+        {
+            if (roomPoint.GetComponent<MountPoint>().available)
             {
-                if (roomPoint.GetComponent<MountPoint>().available)
-                {
-                    return true;
-                }
+                return true;
             }
+        }
         return false;
     }
 
@@ -246,7 +237,7 @@ public class LevelGenerator : MonoBehaviour
         GenerateStartingRoom(); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(3); _chunks.Insert(0, newChunk);
         newChunk.GetComponent<Chunks>().mountPoints[1].GetComponent<MountPoint>().available = false;
-        SetNextMountingPoint(); 
+        SetNextMountingPoint();
         GenerateChunk(2); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(4); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(2); _chunks.Insert(0, newChunk); SetNextMountingPoint();
@@ -261,7 +252,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void Test()
     {
-        origin = new MapCoordinates((int)(mapSideDimension/2) + 1, (int)(mapSideDimension / 2) + 1);
+        origin = new MapCoordinates((int)(mapSideDimension / 2) + 1, (int)(mapSideDimension / 2) + 1);
         mountTransform = gameObject.transform;
         map = new Map(mapSideDimension);
         cache = new List<int>();
@@ -433,7 +424,7 @@ public class LevelGenerator : MonoBehaviour
 
                     if (newChunk.GetComponent<Chunks>().type == ChunkType.Corridor)
                     {
-                        if(Random.value <= roomSpawnRate)
+                        if (Random.value <= roomSpawnRate)
                         {
                             mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
                             origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
@@ -465,7 +456,7 @@ public class LevelGenerator : MonoBehaviour
                                 _chunks.Insert(0, tempChunk);
                             }
                         }
-                            
+
                     }
 
                 }
@@ -482,7 +473,7 @@ public class LevelGenerator : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
         }
-        Debug.Log(_spawnRates[0] + " " +  _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
+        Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
     }
 
     private int CountNumberOfRooms()
@@ -490,7 +481,7 @@ public class LevelGenerator : MonoBehaviour
         int count = 0;
         foreach (GameObject obj in _chunks)
         {
-            if ( obj.GetComponent<Chunks>().type == ChunkType.Room)
+            if (obj.GetComponent<Chunks>().type == ChunkType.Room)
             {
                 count++;
             }
@@ -623,26 +614,26 @@ public class LevelGenerator : MonoBehaviour
 
     private void UpdateDirection()
     {
-            if (mountTransform.GetComponent<MountPoint>().direction == Direction.West) // corner left like
+        if (mountTransform.GetComponent<MountPoint>().direction == Direction.West) // corner left like
+        {
+            switch (direction)
             {
-                switch (direction)
-                {
-                    case Direction.North: direction = Direction.West; break;
-                    case Direction.West: direction = Direction.South; break;
-                    case Direction.South: direction = Direction.East; break;
-                    case Direction.East: direction = Direction.North; break;
-                }
+                case Direction.North: direction = Direction.West; break;
+                case Direction.West: direction = Direction.South; break;
+                case Direction.South: direction = Direction.East; break;
+                case Direction.East: direction = Direction.North; break;
             }
-            else if (mountTransform.GetComponent<MountPoint>().direction == Direction.East) // corner right like
+        }
+        else if (mountTransform.GetComponent<MountPoint>().direction == Direction.East) // corner right like
+        {
+            switch (direction)
             {
-                switch (direction)
-                {
-                    case Direction.North: direction = Direction.East; break;
-                    case Direction.West: direction = Direction.North; break;
-                    case Direction.South: direction = Direction.West; break;
-                    case Direction.East: direction = Direction.South; break;
-                }
+                case Direction.North: direction = Direction.East; break;
+                case Direction.West: direction = Direction.North; break;
+                case Direction.South: direction = Direction.West; break;
+                case Direction.East: direction = Direction.South; break;
             }
+        }
     }
 
     private void UpdateRotation()
@@ -692,6 +683,7 @@ public class LevelGenerator : MonoBehaviour
         {
             accumalatedProbability += _spawnRates[i];
             if (randomNbInPool <= accumalatedProbability)
+                //return chunks[i].GetComponent<Chunks>().id;
                 return i;
         }
         return 0;
@@ -706,7 +698,7 @@ public class LevelGenerator : MonoBehaviour
     private List<int> GetInitialSpawnRates()
     {
         List<int> spawnRates = new List<int>();
-        for (int i = 0; i< chunks.Length; i++)
+        for (int i = 0; i < chunks.Length; i++)
         {
             spawnRates.Add(chunks[i].GetComponent<Chunks>().initialSpawnRate);
         }
