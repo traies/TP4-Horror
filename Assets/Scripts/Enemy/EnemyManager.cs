@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
 
 	private AudioSource _HitSound;
 	private bool _hitOnAnimation;
-	public float HitDamage;
+	public float HitDamage, LookAtDistance, LookAtSmoothRotation;
 
 	private HealthManager _healthManager;
 	private ZombieSoundManager _zombieSounds;
@@ -50,31 +50,39 @@ public class EnemyManager : MonoBehaviour {
 		IDLE,
 		FOLLOWING,
 		ATTACKING,
-		DEAD
+		DEAD,
+		HIT,
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
 		var distanceToPlayer = (transform.position - _player.transform.position).magnitude;
+
 		switch (_state) {
 			case EnemyState.IDLE: {
 				if (distanceToPlayer < InitialAwarenessRadius) {
 					_agent.destination = _player.transform.position;
 					_state = EnemyState.FOLLOWING;
 					_globalEnemyManager.AddAware();
+				} else {
+					_animator.SetFloat("Walk", 0);
 				}
 				break;
 			}
 			case EnemyState.FOLLOWING: {
 
 				Collider aux;
+				if (distanceToPlayer < LookAtDistance) {
+					var targetRotation = Quaternion.LookRotation(_player.transform.position - transform.position);
+					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, LookAtSmoothRotation * Time.deltaTime);
+				}
 				if (CheckPlayerProximity(out aux)) {
-					transform.LookAt(_player.transform);
 					_animator.SetTrigger("Attack");
 					_state = EnemyState.ATTACKING;
 					_hitOnAnimation = true;
 					_agent.isStopped = true;
+					_animator.SetFloat("Walk", 0);
 				} else {
 					if (distanceToPlayer < AwarenessRadius) {
 						_agent.destination = _player.transform.position;
@@ -82,7 +90,7 @@ public class EnemyManager : MonoBehaviour {
 						_state = EnemyState.IDLE;
 						_globalEnemyManager.RemoveAware();
 					}
-					_animator.SetFloat("Walk",1);
+					_animator.SetFloat("Walk", _agent.velocity.magnitude / _agent.speed);
 				}
 				break;
 			}
@@ -93,22 +101,33 @@ public class EnemyManager : MonoBehaviour {
 					if (animationState.normalizedTime >= 0.4 && animationState.normalizedTime <= 0.6  && _hitOnAnimation) {
 						if (CheckPlayerHit()) {
 							Hit();
-							Debug.Log("Hitting");
-							_hitOnAnimation = false;
 						}
+						_hitOnAnimation = false;
 					}
-					if (animationState.normalizedTime >= 1) {
-						_animator.SetTrigger("ResetFollowing");
+				}
+				if (!_hitOnAnimation && animationState.IsName("Following")) {
 						_state = EnemyState.FOLLOWING;
 						_agent.isStopped = false;
 						_hitOnAnimation = false;
 					}
+				break;
+			}
+			case EnemyState.HIT: {
+				var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+				if (animationState.IsName("Following") && !_animator.GetBool("Hit")) {
+					_state = EnemyState.FOLLOWING;
+					_agent.isStopped = false;
 				}
 				break;
 			}
 			case EnemyState.DEAD: {
 				break;
 			}
+		}
+		var worldDeltaPosition = _agent.nextPosition - transform.position;
+		// Pull agent towards character
+		if (worldDeltaPosition.magnitude > _agent.radius) {
+			_agent.nextPosition = transform.position - 0.9f*worldDeltaPosition;
 		}
 	}
 
@@ -173,4 +192,13 @@ public class EnemyManager : MonoBehaviour {
         position.y = _agent.nextPosition.y;
         transform.position = position;
     }
+
+	public void EnemyIsHit() {
+		if (_state != EnemyState.DEAD) {
+			_state = EnemyState.HIT;
+			_animator.SetTrigger("Hit");
+			_agent.isStopped = true;
+			_animator.SetFloat("Walk", 0);
+		}
+	}
 }

@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour {
 	Animator _animator;
 
 	private PickUpManager _pickUp;
 	PlayerHealthManager _playerHealth;
 	private UnityStandardAssets.Characters.FirstPerson.FirstPersonController FirstPersonController;
-	private bool _isAiming;
+	private bool _isAiming, _dead;
 	// Use this for initialization
 	void Start () {
 		_pickUp = GetComponent<PickUpManager>();
@@ -22,6 +22,10 @@ public class PlayerManager : MonoBehaviour {
 		} else {
 			FirstPersonController.StopMovement = false;
 		}
+
+		if (_dead && Input.anyKeyDown) {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
 	}
 
 	public void IsAiming(bool isAiming) {
@@ -29,6 +33,7 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	public void Die() {
+		_dead = true;
 		_pickUp.enabled = false;
 		FirstPersonController.enabled = false;
 	}

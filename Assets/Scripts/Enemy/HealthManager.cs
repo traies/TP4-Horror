@@ -30,6 +30,8 @@ public class HealthManager : MonoBehaviour {
 		_hp -= damage;
 		if (_hp <= 0) {
 			DeathAnimation();
+		} else {
+			_enemyManager.EnemyIsHit();
 		}
 	}
 }

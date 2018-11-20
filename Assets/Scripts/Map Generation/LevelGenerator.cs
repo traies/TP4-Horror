@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+using System.Linq;
 
 public enum Direction { North, South, East, West };
 public enum ChunkType { Corridor, Corner, T, Room };
@@ -20,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
     public float roomSpawnRate;
     public int mapSideDimension;
     public float decreaseRate;
-    
+
     //private parameters
     private float rotY;
     private List<int> cache;
@@ -37,7 +39,8 @@ public class LevelGenerator : MonoBehaviour
     private KeyValuePair<Direction, Transform> _currentPoint;
     private Transform _parentPoint;
 
-    public void Test2()
+    [ContextMenu("Generate Map")]
+    public void GenerateMap()
     {
         // Initialisation
         origin = new MapCoordinates((int)(mapSideDimension / 2) + 1, (int)(mapSideDimension / 2) + 1);
@@ -52,69 +55,74 @@ public class LevelGenerator : MonoBehaviour
         rotY = 0;
         int rand;
         bool added;
-        bool conditionsSatisfied;
 
+        DestroyAllChildren();
         GenerateLevelBasicStructure();
-
-        //do
-        //{
+        do
+        { 
             do
             {
-                do
+                rand = GetRandomChunk();
+                added = GenerateChunk(rand);
+                if (cache.Count < chunks.Length && added)
                 {
-                    rand = GetRandomChunk();
-                    added = GenerateChunk(rand);
-                    if (cache.Count < chunks.Length && added)
+                    _chunks.Add(newChunk);
+
+                    if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
                     {
-                        //_parentChunk.GetComponent<MountPoint>().available = false;
-                        _chunks.Add(newChunk);
-
-                        if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
-                        {
-                            UpdateSpawnRate(rand);
-                        }
-
-                        if (IsThereRoomMountingPoints(newChunk))
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (GenerateRoom(5, origin, mountTransform, tempDir))
-                                newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
-                        }
-                        if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (GenerateRoom(5, origin, mountTransform, tempDir))
-                                newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
-                        }
+                        UpdateSpawnRate(rand);
                     }
-                    else if (cache.Count == chunks.Length)
+
+                    if (IsThereRoomMountingPoints(newChunk))
                     {
-                        ClearCache();
-                        _unMountedPoints.Add(_currentPoint);
-                        break;
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        if (GenerateRoom(5, origin, mountTransform, tempDir))
+                            newChunk.GetComponent<Chunks>().roomPoints[0].GetComponent<MountPoint>().available = false;
                     }
-                } while (!added);
-            } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
 
-            conditionsSatisfied = CountNumberOfRooms() > nbOfRooms;
-            // if one of the condition is not fullfiled then restart the process
-            if (!conditionsSatisfied)
-            {
-                SceneManager.LoadScene("GenerationScene");
-                //foreach (Transform child in transform)
-                //{
-                //    child.transform.parent = null;
-                //}
-            }
-            Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
+                    if (IsThereRoomMountingPoints(newChunk) && newChunk.GetComponent<Chunks>().roomPoints.Count > 1)
+                    {
+                        mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
+                        origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
+                        Direction tempDir = UpdateDirection(direction, mountTransform);
+                        if (GenerateRoom(5, origin, mountTransform, tempDir))
+                            newChunk.GetComponent<Chunks>().roomPoints[1].GetComponent<MountPoint>().available = false;
+                    }
+                }
+                else if (cache.Count == chunks.Length)
+                {
+                    ClearCache();
+                    _unMountedPoints.Add(_currentPoint);
+                    break;
+                }
+            } while (!added);
+        } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
 
-            // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
-            CloseCorridors();
-        //} while (!conditionsSatisfied);
+        // if one of the condition is not fullfiled then restart the process
+        //if (CountNumberOfRooms() < nbOfRooms)
+        //{
+        //    Debug.LogWarning("Couldn't generate level. Try different settings");
+        //}
+
+        Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
+
+        // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
+        CloseCorridors();
+
+        Debug.Log("END");
+    }
+
+
+    [ContextMenu("Destroy all children")]
+    private void DestroyAllChildren()
+    {
+        var tempList = transform.Cast<Transform>().ToList();
+         foreach(var child in tempList)
+         {
+             DestroyImmediate(child.gameObject);
+         }
     }
 
     // We have to "close" the map = instantiate a wall at each mountPoint that wasn't used ( available = true )
@@ -196,13 +204,13 @@ public class LevelGenerator : MonoBehaviour
 
     private bool IsThereRoomMountingPoints(GameObject chunk)
     {
-            foreach (Transform roomPoint in chunk.GetComponent<Chunks>().roomPoints)
+        foreach (Transform roomPoint in chunk.GetComponent<Chunks>().roomPoints)
+        {
+            if (roomPoint.GetComponent<MountPoint>().available)
             {
-                if (roomPoint.GetComponent<MountPoint>().available)
-                {
-                    return true;
-                }
+                return true;
             }
+        }
         return false;
     }
 
@@ -246,7 +254,7 @@ public class LevelGenerator : MonoBehaviour
         GenerateStartingRoom(); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(3); _chunks.Insert(0, newChunk);
         newChunk.GetComponent<Chunks>().mountPoints[1].GetComponent<MountPoint>().available = false;
-        SetNextMountingPoint(); 
+        SetNextMountingPoint();
         GenerateChunk(2); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(4); _chunks.Insert(0, newChunk); SetNextMountingPoint();
         GenerateChunk(2); _chunks.Insert(0, newChunk); SetNextMountingPoint();
@@ -259,238 +267,12 @@ public class LevelGenerator : MonoBehaviour
         SetNextMountingPoint();
     }
 
-    public void Test()
-    {
-        origin = new MapCoordinates((int)(mapSideDimension/2) + 1, (int)(mapSideDimension / 2) + 1);
-        mountTransform = gameObject.transform;
-        map = new Map(mapSideDimension);
-        cache = new List<int>();
-        _chunks = new List<GameObject>();
-        _spawnRates = GetInitialSpawnRates();
-        collision = false;
-        direction = Direction.East;
-        rotY = 0;
-        int rand;
-        bool added;
-
-        newMapChunk = new ChunksMap(6, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(startingRoom) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 3;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 2;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 4;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 2;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 4;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 2;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 4;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        rand = 2;
-        newMapChunk = new ChunksMap(rand, origin, direction);
-        if (map.Add(newMapChunk))
-        {
-            newChunk = Instantiate(chunks[rand]) as GameObject;
-            newChunk.transform.parent = transform;
-            newChunk.transform.position = mountTransform.position;
-            newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-            newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-            newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-            _chunks.Insert(0, newChunk);
-            ClearCache();
-            SetNextMountingPoint();
-        }
-
-        do
-        {
-            do
-            {
-                rand = GetRandomChunk();
-                newMapChunk = new ChunksMap(rand, origin, direction);
-                added = map.Add(newMapChunk);
-                if (cache.Count < chunks.Length && added)
-                {
-                    newChunk = Instantiate(chunks[rand]) as GameObject;
-                    newChunk.transform.parent = transform;
-                    newChunk.transform.position = mountTransform.position;
-                    newChunk.transform.Rotate(new Vector3(0, rotY, 0));
-                    newChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-                    newChunk.GetComponent<Chunks>().instantiatedDirection = direction;
-                    _chunks.Add(newChunk);
-                    ClearCache();
-
-                    // Update the spawnRate of the choosen Chunk to disminish its spawn probabilities in the future
-                    if (newChunk.GetComponent<Chunks>().type != ChunkType.Room)
-                    {
-                        UpdateSpawnRate(rand);
-                    }
-
-                    if (newChunk.GetComponent<Chunks>().type == ChunkType.Corridor)
-                    {
-                        if(Random.value <= roomSpawnRate)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[0];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[0];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (map.Add(new ChunksMap(5, origin, tempDir)))
-                            {
-                                GameObject tempChunk = Instantiate(chunks[5]) as GameObject;
-                                tempChunk.transform.parent = transform;
-                                tempChunk.transform.position = mountTransform.position;
-                                tempChunk.transform.Rotate(new Vector3(0, UpdateRotation(tempDir), 0));
-                                tempChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-                                tempChunk.GetComponent<Chunks>().instantiatedDirection = tempDir;
-                                _chunks.Insert(0, tempChunk);
-                            }
-                        }
-                        if (Random.value <= roomSpawnRate)
-                        {
-                            mountTransform = newChunk.GetComponent<Chunks>().roomPoints[1];
-                            origin = newChunk.GetComponent<Chunks>().chunkMap.roomPoints[1];
-                            Direction tempDir = UpdateDirection(direction, mountTransform);
-                            if (map.Add(new ChunksMap(5, origin, tempDir)))
-                            {
-                                GameObject tempChunk = Instantiate(chunks[5]) as GameObject;
-                                tempChunk.transform.parent = transform;
-                                tempChunk.transform.position = mountTransform.position;
-                                tempChunk.transform.Rotate(new Vector3(0, UpdateRotation(tempDir), 0));
-                                tempChunk.GetComponent<Chunks>().chunkMap = newMapChunk;
-                                tempChunk.GetComponent<Chunks>().instantiatedDirection = tempDir;
-                                _chunks.Insert(0, tempChunk);
-                            }
-                        }
-                            
-                    }
-
-                }
-                else if (cache.Count == chunks.Length)
-                {
-                    ClearCache();
-                    break;
-                }
-            } while (!added);
-        } while (SetNextMountingPoint() && CountNumberOfRooms() < nbOfRooms); // You can add other conditions if you like
-
-        // if one of the condition is not fullfiled then restart the process
-        if (CountNumberOfRooms() < nbOfRooms)
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-        Debug.Log(_spawnRates[0] + " " +  _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
-    }
-
     private int CountNumberOfRooms()
     {
         int count = 0;
         foreach (GameObject obj in _chunks)
         {
-            if ( obj.GetComponent<Chunks>().type == ChunkType.Room)
+            if (obj.GetComponent<Chunks>().type == ChunkType.Room)
             {
                 count++;
             }
@@ -623,26 +405,26 @@ public class LevelGenerator : MonoBehaviour
 
     private void UpdateDirection()
     {
-            if (mountTransform.GetComponent<MountPoint>().direction == Direction.West) // corner left like
+        if (mountTransform.GetComponent<MountPoint>().direction == Direction.West) // corner left like
+        {
+            switch (direction)
             {
-                switch (direction)
-                {
-                    case Direction.North: direction = Direction.West; break;
-                    case Direction.West: direction = Direction.South; break;
-                    case Direction.South: direction = Direction.East; break;
-                    case Direction.East: direction = Direction.North; break;
-                }
+                case Direction.North: direction = Direction.West; break;
+                case Direction.West: direction = Direction.South; break;
+                case Direction.South: direction = Direction.East; break;
+                case Direction.East: direction = Direction.North; break;
             }
-            else if (mountTransform.GetComponent<MountPoint>().direction == Direction.East) // corner right like
+        }
+        else if (mountTransform.GetComponent<MountPoint>().direction == Direction.East) // corner right like
+        {
+            switch (direction)
             {
-                switch (direction)
-                {
-                    case Direction.North: direction = Direction.East; break;
-                    case Direction.West: direction = Direction.North; break;
-                    case Direction.South: direction = Direction.West; break;
-                    case Direction.East: direction = Direction.South; break;
-                }
+                case Direction.North: direction = Direction.East; break;
+                case Direction.West: direction = Direction.North; break;
+                case Direction.South: direction = Direction.West; break;
+                case Direction.East: direction = Direction.South; break;
             }
+        }
     }
 
     private void UpdateRotation()
@@ -692,6 +474,7 @@ public class LevelGenerator : MonoBehaviour
         {
             accumalatedProbability += _spawnRates[i];
             if (randomNbInPool <= accumalatedProbability)
+                //return chunks[i].GetComponent<Chunks>().id;
                 return i;
         }
         return 0;
@@ -706,7 +489,7 @@ public class LevelGenerator : MonoBehaviour
     private List<int> GetInitialSpawnRates()
     {
         List<int> spawnRates = new List<int>();
-        for (int i = 0; i< chunks.Length; i++)
+        for (int i = 0; i < chunks.Length; i++)
         {
             spawnRates.Add(chunks[i].GetComponent<Chunks>().initialSpawnRate);
         }

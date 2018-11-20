@@ -534,7 +534,7 @@ AnimatorState:
   m_PrefabInternal: {fileID: 0}
   m_Name: MeleeIdle
   m_Speed: 0
-  m_CycleOffset: 0
+  m_CycleOffset: 0.54
   m_Transitions:
   - {fileID: 1101111679240939968}
   m_StateMachineBehaviours: []
@@ -612,7 +612,7 @@ AnimatorState:
   m_PrefabInternal: {fileID: 0}
   m_Name: Hit
   m_Speed: 2
-  m_CycleOffset: 0
+  m_CycleOffset: 0.8
   m_Transitions:
   - {fileID: 1101135668636770018}
   m_StateMachineBehaviours: []
@@ -624,7 +624,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 56b608344d638cf42abd058016978f51, type: 3}
+  m_Motion: {fileID: 7400000, guid: 0a5fef73e614af541ab211d1d2ad3e57, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

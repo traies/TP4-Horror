@@ -16,13 +16,15 @@ public class ShootManager : IGenericWeaponManager {
 	private ParticlePool _sparklesPool;
 	private ParticlePool _bloodPool;
 	private AimManager _aimManager;
-	private WeaponManager _weaponManager;
+	protected WeaponManager _weaponManager;
 	private ReloadManager _reloadManager;
 	private LayerMask _mask;
 	public int AnimationLayer;
 	public Vector3 GunCameraAdjustment;
 	private AudioSource _audioSource;
-	public float DamageMultiplier;
+	public float DamageMultiplier, DeviationRadius;
+	public int Shells;
+	private SpritePool _bulletPool;
 	// Use this for initialization
 	void Start () {
 		_playerAnimator = PlayerManager.GetComponent<Animator>();
@@ -34,6 +36,7 @@ public class ShootManager : IGenericWeaponManager {
 		_mask = LayerMask.GetMask("Default", "Zombie", "Door");
 		_reloadManager = GetComponent<ReloadManager>();
 		_audioSource = GetComponent<AudioSource>();
+		_bulletPool = GetComponent<SpritePool>();
 	}
 	
 
@@ -66,23 +69,32 @@ public class ShootManager : IGenericWeaponManager {
 		MuzzleFlash.Play();
 
 		// Draw a raycast and collision effect
-		RaycastHit hit;
-		if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, 1000, _mask)) {
-			ParticlePool particlePool;
-			// Check if another player was hit;
-			if (hit.collider.tag == "CharacterCollision") {
-				// Make other player take damage
-				var limbController = hit.collider.GetComponent<LimbManager>();
-				limbController.TakeDamage(DamageMultiplier);
-				particlePool = _bloodPool;
-			} else {
-				particlePool = _sparklesPool;
+		for (int i = 0; i < Shells; i++ ) {
+			var randomVec = Random.insideUnitSphere;
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.transform.position, Camera.transform.forward + randomVec * DeviationRadius, out hit, 1000, _mask)) {
+				ParticlePool particlePool;
+				// Check if another player was hit;
+				if (hit.collider.tag == "CharacterCollision") {
+					// Make other player take damage
+					var limbController = hit.collider.GetComponent<LimbManager>();
+					limbController.TakeDamage(DamageMultiplier);
+					particlePool = _bloodPool;
+				} else {
+					particlePool = _sparklesPool;
+
+					// Put bullet hole.
+					var bullet = _bulletPool.GetSprite();
+					bullet.transform.SetPositionAndRotation(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+					bullet.transform.SetParent(hit.collider.transform);
+				}
+				var particleSystem = particlePool.GetParticleSystem();
+				particleSystem.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
+				particleSystem.Play();
+				particlePool.ReleaseParticleSystem(particleSystem);
 			}
-			var particleSystem = particlePool.GetParticleSystem();
-			particleSystem.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
-			particleSystem.Play();
-			particlePool.ReleaseParticleSystem(particleSystem);
 		}
+	
 		StartCoroutine(Recoil());
 	}
 
