@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour {
 	public float AttackRadius;
 	public float HitRadius;
 	public float AnimationSpeedRandomizationMin, AnimationSpeedRandomizationMax;
-	public PlayerHealthManager _player;
+	private PlayerHealthManager _player;
 	private Collider _hitCollider;
 
 	private AudioSource _HitSound;
