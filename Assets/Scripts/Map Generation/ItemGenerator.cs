@@ -18,6 +18,7 @@ public class ItemGenerator : MonoBehaviour
     private GameManager _gameManager;
     private List<int> _spawnRates;
 
+    [ContextMenu("Generate Items")]
     public void GenerateItems()
     {
         _gameManager = FindObjectOfType<GameManager>();

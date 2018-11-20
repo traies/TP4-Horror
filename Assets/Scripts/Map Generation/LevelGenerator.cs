@@ -39,7 +39,8 @@ public class LevelGenerator : MonoBehaviour
     private KeyValuePair<Direction, Transform> _currentPoint;
     private Transform _parentPoint;
 
-    public void Test2()
+    [ContextMenu("Generate Map")]
+    public void GenerateMap()
     {
         // Initialisation
         origin = new MapCoordinates((int)(mapSideDimension / 2) + 1, (int)(mapSideDimension / 2) + 1);

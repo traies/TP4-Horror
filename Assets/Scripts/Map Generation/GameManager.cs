@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour
     public Difficulty difficulty;
 
 
-    [ContextMenu("Generate Map")]
+    [ContextMenu("Generate Level")]
     void generateLevel ()
     {
         _levelGenerator = FindObjectOfType<LevelGenerator>();
         _itemGenerator = FindObjectOfType<ItemGenerator>();
-        _levelGenerator.Test2();
+        _levelGenerator.GenerateMap();
         _itemGenerator.GenerateItems();
 	}
 }
