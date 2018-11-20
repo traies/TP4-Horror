@@ -1361,6 +1361,7 @@ GameObject:
   - component: {fileID: 114437910793357396}
   - component: {fileID: 54299024255387454}
   - component: {fileID: 114974434885671152}
+  - component: {fileID: 114346685839412032}
   m_Layer: 9
   m_Name: player
   m_TagString: Player
@@ -4218,6 +4219,19 @@ MonoBehaviour:
   RemainingBulletsUI: {fileID: 0}
   ClipBulletsUI: {fileID: 0}
   BulletsCanvas: {fileID: 0}
+--- !u!114 &114346685839412032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887766814308510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aee44bed2434e74885fb94d046f5e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropRate: 100
+  type: 1
 --- !u!114 &114436625119058796
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65587957509538636}
   - component: {fileID: 114677553405299314}
   - component: {fileID: 114783337374556224}
+  - component: {fileID: 114561222882109960}
   m_Layer: 0
   m_Name: BatteryPickUp
   m_TagString: ItemPickUp
@@ -98,6 +99,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114561222882109960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470671020238954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aee44bed2434e74885fb94d046f5e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropRate: 100
+  type: 0
 --- !u!114 &114677553405299314
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -56,8 +56,8 @@ public class LevelGenerator : MonoBehaviour
 
         GenerateLevelBasicStructure();
 
-        do
-        {
+        //do
+        //{
             do
             {
                 do
@@ -104,17 +104,17 @@ public class LevelGenerator : MonoBehaviour
             // if one of the condition is not fullfiled then restart the process
             if (!conditionsSatisfied)
             {
-                //SceneManager.LoadScene("GenerationScene");
-                foreach (Transform child in transform)
-                {
-                    child.transform.parent = null;
-                }
+                SceneManager.LoadScene("GenerationScene");
+                //foreach (Transform child in transform)
+                //{
+                //    child.transform.parent = null;
+                //}
             }
             Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
 
             // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
             CloseCorridors();
-        } while (!conditionsSatisfied);
+        //} while (!conditionsSatisfied);
     }
 
     // We have to "close" the map = instantiate a wall at each mountPoint that wasn't used ( available = true )
