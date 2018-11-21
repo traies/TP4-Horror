@@ -15,6 +15,7 @@ public class LevelGenerator : MonoBehaviour
     // Level ressources
     public GameObject[] chunks;
     public GameObject startingRoom;
+    public GameObject finalRoom;
     public GameObject endWall;
 
     // Level parameters
@@ -99,9 +100,9 @@ public class LevelGenerator : MonoBehaviour
                 }
             } while (!added);
         } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint() && LastMountingPointAvailable());
-        //GenerateFinalRoom();
+        GenerateFinalRoom();
         CloseCorridors();
-        //Debug.Log("END");
+        Debug.Log("END");
     }
 
 
@@ -117,7 +118,10 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateFinalRoom()
     {
-
+        newChunk = Instantiate(finalRoom) as GameObject;
+        newChunk.transform.parent = transform;
+        newChunk.transform.position = mountTransform.position;
+        newChunk.transform.Rotate(new Vector3(0, rotY, 0));
     }
 
     private bool LastMountingPointAvailable()

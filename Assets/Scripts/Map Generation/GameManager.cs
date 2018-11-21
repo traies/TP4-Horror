@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private EnemyGenerator _enemyGenerator;
     private Generator _generator;
     public Difficulty difficulty;
+    public bool inGame;
 
 
     [ContextMenu("Generate Level")]
