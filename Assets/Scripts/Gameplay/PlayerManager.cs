@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour {
 	Animator _animator;
-
+	public Canvas DeathScreen;
 	private PickUpManager _pickUp;
 	PlayerHealthManager _playerHealth;
 	private UnityStandardAssets.Characters.FirstPerson.FirstPersonController FirstPersonController;
@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour {
 		}
 
 		if (_dead && Input.anyKeyDown) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			SceneManager.LoadScene(0);
 		}
 	}
 
@@ -36,5 +36,6 @@ public class PlayerManager : MonoBehaviour {
 		_dead = true;
 		_pickUp.enabled = false;
 		FirstPersonController.enabled = false;
+		DeathScreen.enabled = true;
 	}
 }

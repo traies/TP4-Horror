@@ -61156,6 +61156,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 1536499520795320, guid: 6d427f45628223b4687aa113de3cf94f, type: 2}
+  EasyZombiePrefab: {fileID: 1536499520795320, guid: 163a4a1458c6df545be1e47000ca0a86,
+    type: 2}
+  NormalZombiePrefab: {fileID: 1536499520795320, guid: c35d55a1c70d0324bbeefc8f67faeb1f,
+    type: 2}
+  HardZombiePrefab: {fileID: 1536499520795320, guid: 6d427f45628223b4687aa113de3cf94f,
+    type: 2}
   decreaseRate: 0
   NbItemsEasy: 5
   NbItemsNormal: 10

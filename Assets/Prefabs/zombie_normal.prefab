@@ -1212,7 +1212,7 @@ GameObject:
   - component: {fileID: 114553103787206948}
   - component: {fileID: 114448885385873494}
   m_Layer: 12
-  m_Name: zombie
+  m_Name: zombie_normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4442,7 +4442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2cf7d611bd4e3419e6c13d3a8246ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialHP: 100
+  InitialHP: 75
 --- !u!114 &114448885385873494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4571,12 +4571,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AwarenessRadius: 10
-  InitialAwarenessRadius: 2
+  InitialAwarenessRadius: 5
   AttackRadius: 1
   HitRadius: 2
   AnimationSpeedRandomizationMin: 0.8
   AnimationSpeedRandomizationMax: 1.2
-  HitDamage: 80
+  HitDamage: 40
   LookAtDistance: 2
   LookAtSmoothRotation: 15
   Limbs:

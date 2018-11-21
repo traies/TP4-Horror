@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyGenerator : MonoBehaviour {
 
     public GameObject[] enemies;
+    public GameObject EasyZombiePrefab;
+    public GameObject NormalZombiePrefab;
+    public GameObject HardZombiePrefab;
     public float decreaseRate;
     public int NbItemsEasy;
     public int NbItemsNormal;

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         _enemyGenerator = FindObjectOfType<EnemyGenerator>();
         _generator = FindObjectOfType<Generator>();
         difficulty = CrossScenesData.difficulty;
+        Debug.Log("Difficulty: " + difficulty);
         inGame = true;
         // GenerateLevel();
         GenerateItems();
@@ -50,6 +51,17 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Generate Enemies")]
     void GenerateEnemies()
     {
+        switch(difficulty) {
+            case Difficulty.Easy:
+                _enemyGenerator.enemies[0] = _enemyGenerator.EasyZombiePrefab;
+                break;
+            case Difficulty.Normal:
+                _enemyGenerator.enemies[0] = _enemyGenerator.NormalZombiePrefab;
+                break;
+            case Difficulty.Hard:
+                _enemyGenerator.enemies[0] = _enemyGenerator.HardZombiePrefab;
+                break;
+        }
         _generator.Generate(ObjectType.Enemy, _enemyGenerator.enemies, difficulty, _enemyGenerator.NbItemsEasy, _enemyGenerator.NbItemsNormal,
             _enemyGenerator.NbItemsHard, _enemyGenerator.decreaseRate);
     }

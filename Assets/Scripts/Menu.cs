@@ -41,7 +41,7 @@ public class Menu : MonoBehaviour {
         GUI.skin = skin;
         GUI.Box(new Rect(Screen.width * menuCoordX, Screen.height * menuCoordY, Screen.width * menuWidth, Screen.height * menuHeight), "");
         GUI.Label(new Rect(Screen.width * titlePosX, Screen.height * titleHeight, Screen.width * titleWidth, Screen.height * titleHeight), new GUIContent("Inside", "Inside"));
-
+        
         if (mainMenu)
         {
             if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * firstButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Play", "Play")))
@@ -91,14 +91,16 @@ public class Menu : MonoBehaviour {
                 controls = false;
             }
             GUI.Label(new Rect(Screen.width * allButtonsPosX, Screen.height * firstButtonPosY, Screen.width * buttonWidth, Screen.height * 3 * buttonHeight),
-                "Move : \n" +
-                "Aim : \n" +
-                "Shoot : \n" +
-                "Change Weapon : \n" +
-                "Charge weapon : \n" +
-                "Change flashlight battery : \n" +
-                "Pick up object : \n" +
-                "Run : \n");
+                "Move: WASD or Arrow keys \n" +
+                "Aim: Right Mouse \n" +
+                "Shoot: Left Mouse\n" +
+                "Change Weapon: Q \n" +
+                "Reload: R\n" +
+                "Use health pack: V\n"+
+                "Toggle flashlight: F\n" +
+                "Change flashlight battery: T\n" +
+                "Pick up object: E\n" +
+                "Run : Shift\n");
         }
     }
 }
