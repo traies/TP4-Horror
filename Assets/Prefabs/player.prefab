@@ -2867,13 +2867,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1819255060532092}
-  m_LocalRotation: {x: 0.027516413, y: -0.08918399, z: 0.0024599999, w: 0.995632}
+  m_LocalRotation: {x: 0.027587503, y: -0.053029735, z: 0.0014608027, w: 0.9982107}
   m_LocalPosition: {x: 0.34, y: -0.21, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 2.5837498}
   m_Children: []
   m_Father: {fileID: 4045394860749878}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 3.1660001, y: -10.237, z: -0.001}
+  m_LocalEulerAnglesHint: {x: 3.1660001, y: -6.0820003, z: -0.001}
 --- !u!4 &4742261981728796
 Transform:
   m_ObjectHideFlags: 1
@@ -4494,7 +4494,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 31.7
   m_CookieSize: 10
@@ -4509,11 +4509,11 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 7479
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -4754,7 +4754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb584ee42430314e9c8a0df8b07b741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialBullets: 100
+  InitialBullets: 0
   BulletClipSize: 4
   RemainingBulletsUI: {fileID: 114294900576102702}
   ClipBulletsUI: {fileID: 114984324956617532}
@@ -4920,7 +4920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb584ee42430314e9c8a0df8b07b741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialBullets: 45
+  InitialBullets: 0
   BulletClipSize: 10
   RemainingBulletsUI: {fileID: 114294900576102702}
   ClipBulletsUI: {fileID: 114984324956617532}
