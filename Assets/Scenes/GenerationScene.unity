@@ -53677,6 +53677,41 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 108999319407150458, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 108999319407150458, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 108999319407150458, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734433190816126, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.027587503
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734433190816126, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.053029735
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734433190816126, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.0014608027
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734433190816126, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9982107
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734433190816126, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -6.0820003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
   m_IsPrefabAsset: 0
