@@ -17,5 +17,4 @@ public class ItemGenerator : MonoBehaviour
     private int _numberOfItems;
     private GameManager _gameManager;
     private List<int> _spawnRates;
-
 }
