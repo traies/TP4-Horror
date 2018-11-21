@@ -18,11 +18,10 @@ public class Generator : MonoBehaviour {
     private List<KeyValuePair<Transform, GameObject>> _dropPositions;
     private List<GameObject> _rooms;
     private int _numberOfObjects;
-    private GameManager _gameManager;
     private List<int> _spawnRates;
     private ObjectType _type;
 
-    public void Generate(ObjectType t, GameObject[] obj, int easy, int normal, int hard, float decreaseRate)
+    public void Generate(ObjectType t, GameObject[] obj, Difficulty difficulty, int easy, int normal, int hard, float decreaseRate)
     {
         // Instanciating the transferred variables
         objects = obj;
@@ -32,14 +31,12 @@ public class Generator : MonoBehaviour {
         _decreaseRate = decreaseRate;
         _type = t;
 
-        _gameManager = FindObjectOfType<GameManager>();
         _spawnRates = GetInitialSpawnRates();
-        //_rooms = GetMapRooms();
         _rooms = GetMapChunks();
         _dropPositions = GetMapDropPositions();
         _dropPositions = Shuffle(_dropPositions);
         _objects = new List<GameObject>();
-        _numberOfObjects = SetNumberOfObjects(_gameManager.difficulty);
+        _numberOfObjects = SetNumberOfObjects(difficulty);
 
         GameObject myObject;
         GameObject room;
@@ -69,15 +66,6 @@ public class Generator : MonoBehaviour {
     private List<GameObject> GetMapChunks()
     {
         LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();
-        //List<GameObject> rooms = new List<GameObject>();
-        //foreach (GameObject obj in levelGenerator.GetChunks())
-        //{
-        //    if (obj.GetComponent<Chunks>().type == ChunkType.Room)
-        //    {
-        //        rooms.Add(obj);
-        //    }
-        //}
-        //return rooms;
         return levelGenerator.GetChunks();
     }
 
