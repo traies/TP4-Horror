@@ -34,7 +34,8 @@ public class Generator : MonoBehaviour {
 
         _gameManager = FindObjectOfType<GameManager>();
         _spawnRates = GetInitialSpawnRates();
-        _rooms = GetMapRooms();
+        //_rooms = GetMapRooms();
+        _rooms = GetMapChunks();
         _dropPositions = GetMapDropPositions();
         _dropPositions = Shuffle(_dropPositions);
         _objects = new List<GameObject>();
@@ -65,18 +66,19 @@ public class Generator : MonoBehaviour {
         return false;
     }
 
-    private List<GameObject> GetMapRooms()
+    private List<GameObject> GetMapChunks()
     {
         LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();
-        List<GameObject> rooms = new List<GameObject>();
-        foreach (GameObject obj in levelGenerator.GetChunks())
-        {
-            if (obj.GetComponent<Chunks>().type == ChunkType.Room)
-            {
-                rooms.Add(obj);
-            }
-        }
-        return rooms;
+        //List<GameObject> rooms = new List<GameObject>();
+        //foreach (GameObject obj in levelGenerator.GetChunks())
+        //{
+        //    if (obj.GetComponent<Chunks>().type == ChunkType.Room)
+        //    {
+        //        rooms.Add(obj);
+        //    }
+        //}
+        //return rooms;
+        return levelGenerator.GetChunks();
     }
 
     private List<KeyValuePair<Transform, GameObject>> GetMapDropPositions()

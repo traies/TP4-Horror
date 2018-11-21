@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 2
-  inGame: 0
+  inGame: 1
 --- !u!4 &112525442
 Transform:
   m_ObjectHideFlags: 0

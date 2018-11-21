@@ -130,6 +130,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1457861610067444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4874099318986552}
+  - component: {fileID: 114140656635888132}
+  m_Layer: 0
+  m_Name: EnemyPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1458471943337228
 GameObject:
   m_ObjectHideFlags: 1
@@ -293,6 +309,7 @@ Transform:
   - {fileID: 4820866396657296}
   - {fileID: 4569221083510278}
   - {fileID: 4053457753859852}
+  - {fileID: 4874099318986552}
   - {fileID: 4996315134680382}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -449,6 +466,19 @@ Transform:
   m_Father: {fileID: 4093041843332518}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &4874099318986552
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1457861610067444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.19, y: 0, z: 2.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4093041843332518}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4926627983325376
 Transform:
   m_ObjectHideFlags: 1
@@ -474,7 +504,7 @@ Transform:
   m_Children:
   - {fileID: 4459094479072478}
   m_Father: {fileID: 4093041843332518}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23023559352604920
 MeshRenderer:
@@ -1043,6 +1073,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   available: 1
+--- !u!114 &114140656635888132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1457861610067444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a91def0f8221654aa824f8ca5941b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  available: 1
 --- !u!114 &114763067807912530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1058,7 +1101,8 @@ MonoBehaviour:
   - {fileID: 4569221083510278}
   roomPoints:
   - {fileID: 4053457753859852}
-  itemPoints: []
+  dropPoints:
+  - {fileID: 4874099318986552}
   instantiatedDirection: 2
   type: 0
   initialSpawnRate: 75
