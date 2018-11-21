@@ -98,20 +98,10 @@ public class LevelGenerator : MonoBehaviour
                     break;
                 }
             } while (!added);
-        } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint());
-
-        // if one of the condition is not fullfiled then restart the process
-        //if (CountNumberOfRooms() < nbOfRooms)
-        //{
-        //    Debug.LogWarning("Couldn't generate level. Try different settings");
-        //}
-
-        Debug.Log(_spawnRates[0] + " " + _spawnRates[1] + " " + _spawnRates[2] + " " + _spawnRates[3] + " " + _spawnRates[4] + " " + _spawnRates[5]);
-
-        // BUGS : mur mal orienté dans le cas des corridors, mettre la texture de l'autre côté
+        } while (CountNumberOfRooms() < nbOfRooms && SetNextMountingPoint() && LastMountingPointAvailable());
+        //GenerateFinalRoom();
         CloseCorridors();
-
-        Debug.Log("END");
+        //Debug.Log("END");
     }
 
 
@@ -125,9 +115,27 @@ public class LevelGenerator : MonoBehaviour
          }
     }
 
-    // We have to "close" the map = instantiate a wall at each mountPoint that wasn't used ( available = true )
-    // Also for stuckPoints, and roomPoints which are still available
-    // NOT OPTIMIZED
+    private void GenerateFinalRoom()
+    {
+
+    }
+
+    private bool LastMountingPointAvailable()
+    {
+        foreach (GameObject obj in _chunks)
+        {
+            List<Transform> p = obj.GetComponent<Chunks>().mountPoints;
+            for (int i = 0; i < p.Count; i++)
+            {
+                if (p[i].GetComponent<MountPoint>().available)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void CloseCorridors()
     {
         Direction dir;
@@ -322,7 +330,6 @@ public class LevelGenerator : MonoBehaviour
         return false;
     }
 
-    //Add some rules here to shape the level
     private int GetRandomChunk()
     {
         // With a decided probability, randomly choose between generating a room or a corridor piece
@@ -474,7 +481,6 @@ public class LevelGenerator : MonoBehaviour
         {
             accumalatedProbability += _spawnRates[i];
             if (randomNbInPool <= accumalatedProbability)
-                //return chunks[i].GetComponent<Chunks>().id;
                 return i;
         }
         return 0;

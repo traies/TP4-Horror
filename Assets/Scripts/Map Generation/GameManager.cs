@@ -12,16 +12,26 @@ public class GameManager : MonoBehaviour
 
 
     [ContextMenu("Generate Level")]
-    void generateLevel ()
+    void GenerateLevel ()
     {
         _levelGenerator = FindObjectOfType<LevelGenerator>();
         _itemGenerator = FindObjectOfType<ItemGenerator>();
         _enemyGenerator = FindObjectOfType<EnemyGenerator>();
         _generator = FindObjectOfType<Generator>();
         _levelGenerator.GenerateMap();
-        _generator.Generate(ObjectType.Item, _itemGenerator.items, _itemGenerator.NbItemsEasy, _itemGenerator.NbItemsNormal, 
-            _itemGenerator.NbItemsHard, _itemGenerator.decreaseRate);
-        _generator.Generate(ObjectType.Enemy, _enemyGenerator.enemies, _enemyGenerator.NbItemsEasy, _enemyGenerator.NbItemsNormal, 
-            _enemyGenerator.NbItemsHard, _enemyGenerator.decreaseRate);
 	}
+
+    [ContextMenu("Generate Items")]
+    void GenerateItems()
+    {
+        _generator.Generate(ObjectType.Item, _itemGenerator.items, _itemGenerator.NbItemsEasy, _itemGenerator.NbItemsNormal,
+            _itemGenerator.NbItemsHard, _itemGenerator.decreaseRate);
+    }
+
+    [ContextMenu("Generate Enemies")]
+    void GenerateEnemies()
+    {
+        _generator.Generate(ObjectType.Enemy, _enemyGenerator.enemies, _enemyGenerator.NbItemsEasy, _enemyGenerator.NbItemsNormal,
+            _enemyGenerator.NbItemsHard, _enemyGenerator.decreaseRate);
+    }
 }
