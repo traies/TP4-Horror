@@ -11,23 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1339267216711820}
   m_IsPrefabAsset: 1
---- !u!1 &1009653861961934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4662998693985300}
-  - component: {fileID: 33519650663278572}
-  - component: {fileID: 23440409190960562}
-  m_Layer: 0
-  m_Name: default
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
 --- !u!1 &1339267216711820
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +23,8 @@ GameObject:
   - component: {fileID: 114770313902366800}
   - component: {fileID: 114420690667983350}
   - component: {fileID: 114251970356267804}
+  - component: {fileID: 23320848893906336}
+  - component: {fileID: 33886046419312110}
   m_Layer: 0
   m_Name: AmmoPickUp
   m_TagString: ItemPickUp
@@ -53,33 +38,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339267216711820}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.19, y: 0.102, z: 0.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4662998693985300}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4662998693985300
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009653861961934}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4532741020644642}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23440409190960562
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!23 &23320848893906336
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009653861961934}
+  m_GameObject: {fileID: 1339267216711820}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -89,7 +60,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 3a3c6f5dfa9d9d04a9369a0b7f369376, type: 2}
+  - {fileID: 2100000, guid: 2f03d8c8ecf13b547954d36390533a55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,13 +80,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33519650663278572
+--- !u!33 &33886046419312110
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009653861961934}
-  m_Mesh: {fileID: 4300000, guid: da1f6a084d8b7f549a36a69f938c7c33, type: 3}
+  m_GameObject: {fileID: 1339267216711820}
+  m_Mesh: {fileID: 4300000, guid: 788267e74b26df7408c35e159e98bcb9, type: 3}
 --- !u!65 &65681610273089030
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -126,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19365549, y: 0.21475893, z: 0.2639333}
-  m_Center: {x: 0, y: 0.010067254, z: 0.005548328}
+  m_Size: {x: 18.129196, y: 11.5402565, z: 2.6812646}
+  m_Center: {x: 0.00000047683716, y: 0, z: 0}
 --- !u!114 &114251970356267804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,5 +135,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f527b2435bc22b74c930dc8c796f8dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Ammo
+  Name: Pistol Ammo
   BulletCount: 10

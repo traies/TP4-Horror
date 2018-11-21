@@ -2,12 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType{
+	PISTOL,
+	SHOTGUN,
+}
+
 public class AmmoPickUpItem : PickUpItem {
 
 	public int BulletCount;
+	public WeaponType Type;
 
 	public override void PickUp(PickUpManager pickUpManager) {
-		pickUpManager.WeaponManager.AddBullets(BulletCount);
+		switch(Type) {
+			case WeaponType.PISTOL:
+				pickUpManager.PistolManager.AddBullets(BulletCount);
+				break;
+			case WeaponType.SHOTGUN:
+				pickUpManager.ShotgunManager.AddBullets(BulletCount);
+				break;
+		}
 		Destroy(gameObject);
 	}
 }
