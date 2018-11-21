@@ -11,7 +11,7 @@ public class WeaponSwitchManager : MonoBehaviour {
 	}
 
 	IEnumerator DelayedStart() {
-		yield return new WaitForEndOfFrame();
+		yield return null;
 
 		foreach(var w in Weapons) {
 			w.gameObject.SetActive(false);
