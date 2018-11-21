@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7c10de7d17f9e4381807347cdeb2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 2
 --- !u!4 &112525442
 Transform:
   m_ObjectHideFlags: 0
@@ -453,23 +453,81 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4664599750493192, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664599750493192, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4664599750493192, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114891339244595334, guid: 3f3065619342ca342988d92a8c775f59,
+    - target: {fileID: 114974434885671152, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
-      propertyPath: HealthBar
+      propertyPath: BatteryBar
       value: 
-      objectReference: {fileID: 1007340983}
+      objectReference: {fileID: 45371694}
+    - target: {fileID: 114974434885671152, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: BatteriesText
+      value: 
+      objectReference: {fileID: 82084426}
+    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadCanvas
+      value: 
+      objectReference: {fileID: 1858532324}
+    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadImage
+      value: 
+      objectReference: {fileID: 1239663504}
+    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadCanvas
+      value: 
+      objectReference: {fileID: 1858532324}
+    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ReloadImage
+      value: 
+      objectReference: {fileID: 1239663504}
+    - target: {fileID: 114473928680367270, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: Crosshairs
+      value: 
+      objectReference: {fileID: 1035933290}
+    - target: {fileID: 114212956578192658, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: Crosshairs
+      value: 
+      objectReference: {fileID: 1035933290}
+    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: RemainingBulletsUI
+      value: 
+      objectReference: {fileID: 1016531416}
+    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ClipBulletsUI
+      value: 
+      objectReference: {fileID: 325834963}
+    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: BulletsCanvas
+      value: 
+      objectReference: {fileID: 1808270465}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: RemainingBulletsUI
+      value: 
+      objectReference: {fileID: 1016531416}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: ClipBulletsUI
+      value: 
+      objectReference: {fileID: 325834963}
+    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: BulletsCanvas
+      value: 
+      objectReference: {fileID: 1808270465}
+    - target: {fileID: 114587537527034986, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: OpenDoorPrompt
+      value: 
+      objectReference: {fileID: 494273648}
     - target: {fileID: 114840856186600032, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: PickUpPrompt
@@ -480,84 +538,14 @@ Prefab:
       propertyPath: PickUpItemName
       value: 
       objectReference: {fileID: 2004550930}
-    - target: {fileID: 114587537527034986, guid: 3f3065619342ca342988d92a8c775f59,
+    - target: {fileID: 114891339244595334, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
-      propertyPath: OpenDoorPrompt
+      propertyPath: HealthBar
       value: 
-      objectReference: {fileID: 494273648}
+      objectReference: {fileID: 1007340983}
     - target: {fileID: 114891339244595334, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: HealthPacksUI
-      value: 
-      objectReference: {fileID: 82084426}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: RemainingBulletsUI
-      value: 
-      objectReference: {fileID: 1016531416}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ClipBulletsUI
-      value: 
-      objectReference: {fileID: 325834963}
-    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: RemainingBulletsUI
-      value: 
-      objectReference: {fileID: 1016531416}
-    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ClipBulletsUI
-      value: 
-      objectReference: {fileID: 325834963}
-    - target: {fileID: 114264830651015118, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: BulletsCanvas
-      value: 
-      objectReference: {fileID: 1808270465}
-    - target: {fileID: 114341020426337218, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: BulletsCanvas
-      value: 
-      objectReference: {fileID: 1808270465}
-    - target: {fileID: 114212956578192658, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: Crosshairs
-      value: 
-      objectReference: {fileID: 1035933290}
-    - target: {fileID: 114473928680367270, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: Crosshairs
-      value: 
-      objectReference: {fileID: 1035933290}
-    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ReloadCanvas
-      value: 
-      objectReference: {fileID: 1858532324}
-    - target: {fileID: 114683710325540524, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ReloadImage
-      value: 
-      objectReference: {fileID: 1239663504}
-    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ReloadCanvas
-      value: 
-      objectReference: {fileID: 1858532324}
-    - target: {fileID: 114164423996916368, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: ReloadImage
-      value: 
-      objectReference: {fileID: 1239663504}
-    - target: {fileID: 114974434885671152, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: BatteryBar
-      value: 
-      objectReference: {fileID: 45371694}
-    - target: {fileID: 114974434885671152, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: BatteriesText
       value: 
       objectReference: {fileID: 82084426}
     m_RemovedComponents: []
@@ -673,16 +661,16 @@ MonoBehaviour:
   - {fileID: 1378101274761504, guid: 19badffc86c67f5438c5164d77712b2d, type: 2}
   - {fileID: 1992110932580800, guid: 0211d1fc4f53bbb43a16df1d731cb194, type: 2}
   - {fileID: 1235315637888648, guid: b65c66f1ecbf9b04c8e76df60708cc68, type: 2}
-  - {fileID: 1327446838036982, guid: 9643b3366cd6ac443912939e1ecffc35, type: 2}
+  - {fileID: 1427211113656042, guid: 9643b3366cd6ac443912939e1ecffc35, type: 2}
   - {fileID: 1450326853235690, guid: 99787fa06e180d740927a05e0c32c1b0, type: 2}
   - {fileID: 1739607670418870, guid: f4912848145167b438e00ce23fccbfab, type: 2}
   startingRoom: {fileID: 1437407746834430, guid: 0bbbba5f550dae047a63e7a49bd3b845,
     type: 2}
   endWall: {fileID: 1524731909998300, guid: a975390cba9f16642910b5e74883c280, type: 2}
-  nbOfRooms: 5
-  roomSpawnRate: 0.2
-  mapSideDimension: 100
-  decreaseRate: 0.3
+  nbOfRooms: 20
+  roomSpawnRate: 0.05
+  mapSideDimension: 1000
+  decreaseRate: 0.05
 --- !u!4 &1536125897
 Transform:
   m_ObjectHideFlags: 0

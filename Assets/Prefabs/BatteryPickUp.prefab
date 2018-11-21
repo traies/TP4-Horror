@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23327320852759926}
   - component: {fileID: 65587957509538636}
   - component: {fileID: 114677553405299314}
-  - component: {fileID: 114783337374556224}
   - component: {fileID: 114561222882109960}
   m_Layer: 0
   m_Name: BatteryPickUp
@@ -124,15 +123,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Battery
---- !u!114 &114783337374556224
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470671020238954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09409168e35c4b34ca125a85ded45195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropRate: 100
