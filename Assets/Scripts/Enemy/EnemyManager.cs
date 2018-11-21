@@ -194,7 +194,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
 	public void EnemyIsHit() {
-		if (_state != EnemyState.DEAD) {
+		if (_state != EnemyState.DEAD && _state != EnemyState.HIT) {
 			_state = EnemyState.HIT;
 			_animator.SetTrigger("Hit");
 			_agent.isStopped = true;
