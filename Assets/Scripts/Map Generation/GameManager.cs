@@ -11,6 +11,22 @@ public class GameManager : MonoBehaviour
     public Difficulty difficulty;
     public bool inGame;
 
+    private void Start()
+    {
+        difficulty = CrossScenesData.difficulty;
+        inGame = true;
+        GenerateLevel();
+        GenerateItems();
+        GenerateEnemies();
+    }
+
+    private void Update()
+    {
+        if (!inGame)
+        {
+            //GameOver
+        }
+    }
 
     [ContextMenu("Generate Level")]
     void GenerateLevel ()

@@ -292,11 +292,15 @@ MonoBehaviour:
   menuCoordY: 0
   menuWidth: 1
   menuHeight: 1
+  titlePosX: 0.7
+  titlePosY: 0.2
+  titleWidth: 0.4
+  titleHeight: 0.35
   buttonWidth: 0.2
   buttonHeight: 0.2
   allButtonsPosX: 0.1
-  firstButtonPosY: 0.25
-  secondButtonPosY: 0.5
+  firstButtonPosY: 0.2
+  secondButtonPosY: 0.475
   thirdButtonPosY: 0.75
 --- !u!222 &473157596
 CanvasRenderer:

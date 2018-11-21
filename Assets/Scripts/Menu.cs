@@ -6,8 +6,9 @@ public class Menu : MonoBehaviour {
 
     private bool mainMenu = true;
     private bool play = false;
-    private bool highScores = false;
+    private bool difficulty = false;
     private bool controls = false;
+    private Difficulty _difficulty;
     private AudioSource audioSource;
     public GUISkin skin;
     public AudioClip audioClip;
@@ -17,6 +18,10 @@ public class Menu : MonoBehaviour {
     public float menuCoordY;
     public float menuWidth;
     public float menuHeight;
+    public float titlePosX;
+    public float titlePosY;
+    public float titleWidth;
+    public float titleHeight;
     public float buttonWidth;
     public float buttonHeight;
     public float allButtonsPosX;
@@ -28,12 +33,14 @@ public class Menu : MonoBehaviour {
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(audioClip);
+        CrossScenesData.difficulty = Difficulty.Normal; // As a default value
     }
 
     private void OnGUI()
     {
         GUI.skin = skin;
         GUI.Box(new Rect(Screen.width * menuCoordX, Screen.height * menuCoordY, Screen.width * menuWidth, Screen.height * menuHeight), "");
+        GUI.Label(new Rect(Screen.width * titlePosX, Screen.height * titleHeight, Screen.width * titleWidth, Screen.height * titleHeight), new GUIContent("Inside", "Inside"));
 
         if (mainMenu)
         {
@@ -43,27 +50,39 @@ public class Menu : MonoBehaviour {
                 play = true;
                 Application.LoadLevel("GenerationScene");
             }
-            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * secondButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Controls", "Controls")))
+            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * secondButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Difficulty", "Difficulty")))
+            {
+                mainMenu = false;
+                difficulty = true;
+            }
+            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * thirdButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Controls", "Controls")))
             {
                 mainMenu = false;
                 controls = true;
             }
-            //if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * thirdButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Controls", "Controls")))
-            //{
-            //    mainMenu = false;
-            //    controls = true;
-            //}
         }
-        //else if (highScores)
-        //{
-        //    GUI.Label(new Rect(Screen.width * allButtonsPosX, Screen.height * firstButtonPosY, Screen.width * buttonWidth, Screen.height * 3 * buttonHeight),
-        //        "Current highscore\n");
-        //    if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * thirdButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Return", "Return")))
-        //    {
-        //        mainMenu = true;
-        //        highScores = false;
-        //    }
-        //}
+        else if (difficulty)
+        {
+            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * firstButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Easy", "Easy")))
+            {
+                difficulty = false;
+                mainMenu = true;
+                _difficulty = Difficulty.Easy;
+            }
+            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * secondButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Normal", "Normal")))
+            {
+                difficulty = false;
+                mainMenu = true;
+                _difficulty = Difficulty.Normal;
+            }
+            if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * thirdButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Hard", "Hard")))
+            {
+                difficulty = false;
+                mainMenu = true;
+                _difficulty = Difficulty.Hard;
+            }
+            CrossScenesData.difficulty = _difficulty;
+        }
         else if (controls)
         {
             if (GUI.Button(new Rect(Screen.width * allButtonsPosX, Screen.height * thirdButtonPosY, Screen.width * buttonWidth, Screen.height * buttonHeight), new GUIContent("Return", "Return")))
