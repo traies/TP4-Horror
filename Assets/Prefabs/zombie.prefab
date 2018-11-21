@@ -1210,6 +1210,7 @@ GameObject:
   - component: {fileID: 114316832965762896}
   - component: {fileID: 136557018722381662}
   - component: {fileID: 114553103787206948}
+  - component: {fileID: 114448885385873494}
   m_Layer: 12
   m_Name: zombie
   m_TagString: Untagged
@@ -4150,13 +4151,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.507
+  m_Volume: 0.368
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 237
+  Priority: 84
   DopplerLevel: 1
   MinDistance: 0.2954774
   MaxDistance: 5
@@ -4442,6 +4443,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialHP: 100
+--- !u!114 &114448885385873494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536499520795320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115dfe7b0938447cbbf9507076f54049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tracked: {fileID: 4953733036741172}
+  m_Size: {x: 80, y: 20, z: 80}
 --- !u!114 &114462978345032688
 MonoBehaviour:
   m_ObjectHideFlags: 1

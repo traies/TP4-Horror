@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.AI;
 public enum Difficulty { Easy, Normal, Hard };
 
 public class GameManager : MonoBehaviour
@@ -13,9 +14,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _levelGenerator = FindObjectOfType<LevelGenerator>();
+        _itemGenerator = FindObjectOfType<ItemGenerator>();
+        _enemyGenerator = FindObjectOfType<EnemyGenerator>();
+        _generator = FindObjectOfType<Generator>();
         difficulty = CrossScenesData.difficulty;
         inGame = true;
-        GenerateLevel();
+        // GenerateLevel();
         GenerateItems();
         GenerateEnemies();
     }
@@ -32,9 +37,6 @@ public class GameManager : MonoBehaviour
     void GenerateLevel ()
     {
         _levelGenerator = FindObjectOfType<LevelGenerator>();
-        _itemGenerator = FindObjectOfType<ItemGenerator>();
-        _enemyGenerator = FindObjectOfType<EnemyGenerator>();
-        _generator = FindObjectOfType<Generator>();
         _levelGenerator.GenerateMap();
 	}
 

@@ -40,6 +40,13 @@ public class LevelGenerator : MonoBehaviour
     private KeyValuePair<Direction, Transform> _currentPoint;
     private Transform _parentPoint;
 
+    void Awake() {
+        _chunks = new List<GameObject>();
+        foreach(var c in GetComponentsInChildren<Chunks>()) {
+            _chunks.Add(c.gameObject);
+        }
+    }
+
     [ContextMenu("Generate Map")]
     public void GenerateMap()
     {
