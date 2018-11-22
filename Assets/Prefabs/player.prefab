@@ -6295,7 +6295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPoints: 100
   HealthBar: {fileID: 114759905935986246}
-  InitialHealthPacks: 3
+  InitialHealthPacks: 0
   UseHealthPackSound: {fileID: 82804734133083992}
   NoHealthPackSound: {fileID: 82797563980448280}
   DeathSound: {fileID: 82101018717904460}
@@ -6478,8 +6478,8 @@ MonoBehaviour:
   Spotlight: {fileID: 108999319407150458}
   AudioSource: {fileID: 82411139177537270}
   FullCharge: 100
-  BatteryDrainPerSecond: 2
-  Batteries: 2
+  BatteryDrainPerSecond: 3
+  Batteries: 0
   BatteryBar: {fileID: 114875911548026024}
   BatteriesText: {fileID: 114565606695994410}
   TurnOnOff: {fileID: 8300000, guid: fea60389b834443f28cfd0cc3b732f25, type: 3}
