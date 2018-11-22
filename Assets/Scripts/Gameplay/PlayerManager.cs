@@ -36,8 +36,6 @@ public class PlayerManager : MonoBehaviour {
 	public void Die() {
 		_dead = true;
 		_pickUp.enabled = false;
-		FirstPersonController.m_MouseLook.lockCursor = false;
-		
 		DeathScreen.enabled = true;
 	}
 }
