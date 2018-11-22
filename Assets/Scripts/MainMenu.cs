@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour {
 	void OnNormal() {
 		// Set difficulty first
 		CrossScenesData.difficulty = Difficulty.Normal;
-		SceneManager.LoadScene("GenerationScene");
+		SceneManager.LoadScene("Level1_normal");
 	}
 
 	void OnHard() {

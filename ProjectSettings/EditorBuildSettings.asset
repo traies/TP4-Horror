@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GenerationScene.unity
     guid: 397055bd6b5d37a4d93e483bbcea2d64
   - enabled: 1
-    path: Assets/Scenes/Easy/Level1.unity
+    path: Assets/Scenes/Easy/Level1_easy.unity
     guid: 6d96bb7f77e71423f9b63bb7894a883a
   - enabled: 1
-    path: Assets/Scenes/Easy/Level2.unity
+    path: Assets/Scenes/Easy/Level2_easy.unity
     guid: ae372860e42254baeaeea9811034fbf9
+  - enabled: 1
+    path: Assets/Scenes/Easy/Level3_easy.unity
+    guid: c061c1764d2e2477dac67dda23ca7023
   m_configObjects: {}
