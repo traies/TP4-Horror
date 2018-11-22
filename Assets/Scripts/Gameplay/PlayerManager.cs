@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour {
 	Animator _animator;
-	public Canvas DeathScreen;
+	public Canvas DeathScreen, VictoryScreen;
 	private PickUpManager _pickUp;
 	PlayerHealthManager _playerHealth;
 	private UnityStandardAssets.Characters.FirstPerson.FirstPersonController FirstPersonController;
@@ -37,5 +37,10 @@ public class PlayerManager : MonoBehaviour {
 		_dead = true;
 		_pickUp.enabled = false;
 		DeathScreen.enabled = true;
+	}
+
+	public void GameIsWon() {
+		VictoryScreen.enabled = true;
+		FirstPersonController.StopMovement = true;
 	}
 }

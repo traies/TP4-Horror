@@ -49656,6 +49656,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: MenuScene
+  EndGame: 1
+  Delay: 5
 --- !u!135 &1505872037
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -67783,6 +67785,16 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -67803,6 +67815,16 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114836712675670968, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114836712675670968, guid: 3f3065619342ca342988d92a8c775f59,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114917517397648542, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -67813,100 +67835,10 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
+    - target: {fileID: 114752127625896610, guid: 3f3065619342ca342988d92a8c775f59,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20193557779296128, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 20193557779296128, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20193557779296128, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20193557779296128, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114854135849706776, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190335
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917517397648542, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917517397648542, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917517397648542, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190335
-      objectReference: {fileID: 0}
-    - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190335
-      objectReference: {fileID: 0}
-    - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114550912118278456, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917517397648542, guid: 3f3065619342ca342988d92a8c775f59,
-        type: 2}
-      propertyPath: m_fontColor.g
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f3065619342ca342988d92a8c775f59, type: 2}
