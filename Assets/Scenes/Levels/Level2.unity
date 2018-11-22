@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 328fc11e0a87044be88e552680476671, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 86239fad61917431e89e12f3860549c8, type: 2}
 --- !u!1 &1937748
 GameObject:
   m_ObjectHideFlags: 0
@@ -10331,7 +10331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8026239af51be41e2a6382ee087189ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Level2_easy
+  nextScene: Level3
 --- !u!135 &403730975
 SphereCollider:
   m_ObjectHideFlags: 0

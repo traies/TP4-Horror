@@ -32,19 +32,19 @@ public class MainMenu : MonoBehaviour {
 
 	void OnEasy() {
 		// Set difficulty first
-		CrossScenesData.difficulty = Difficulty.Easy;
-		SceneManager.LoadScene("Level1_easy");
+        CrossScenesData.Instance.difficulty = Difficulty.Easy;
+		SceneManager.LoadScene("Level1");
 	}
 
 	void OnNormal() {
 		// Set difficulty first
-		CrossScenesData.difficulty = Difficulty.Normal;
-		SceneManager.LoadScene("GenerationScene");
+        CrossScenesData.Instance.difficulty = Difficulty.Normal;
+		SceneManager.LoadScene("Level1");
 	}
 
 	void OnHard() {
-		// Set difficulty first
-		CrossScenesData.difficulty = Difficulty.Hard;
-		SceneManager.LoadScene("GenerationScene");
+        // Set difficulty first
+        CrossScenesData.Instance.difficulty = Difficulty.Hard;
+		SceneManager.LoadScene("Level1");
 	}
 }
