@@ -47,7 +47,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    [ContextMenu("Generate Map")]
     public void GenerateMap()
     {
         // Initialisation

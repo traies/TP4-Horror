@@ -41,14 +41,12 @@ public class GameManager : MonoBehaviour
         _levelGenerator.GenerateMap();
 	}
 
-    [ContextMenu("Generate Items")]
     void GenerateItems()
     {
         _generator.Generate(ObjectType.Item, _itemGenerator.items, difficulty, _itemGenerator.NbItemsEasy, _itemGenerator.NbItemsNormal,
             _itemGenerator.NbItemsHard, _itemGenerator.decreaseRate);
     }
 
-    [ContextMenu("Generate Enemies")]
     void GenerateEnemies()
     {
         switch(difficulty) {
