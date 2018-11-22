@@ -15,6 +15,9 @@ public class MainMenu : MonoBehaviour {
 		Easy.onClick.AddListener(OnEasy);
 		Normal.onClick.AddListener(OnNormal);
 		Hard.onClick.AddListener(OnHard);
+
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	void OnClickControls() {

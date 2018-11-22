@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour {
 		}
 
 		if (_dead && Input.anyKeyDown) {
+			
 			SceneManager.LoadScene(0);
 		}
 	}
@@ -35,7 +36,6 @@ public class PlayerManager : MonoBehaviour {
 	public void Die() {
 		_dead = true;
 		_pickUp.enabled = false;
-		FirstPersonController.enabled = false;
 		DeathScreen.enabled = true;
 	}
 }
