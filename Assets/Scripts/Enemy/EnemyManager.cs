@@ -168,16 +168,17 @@ public class EnemyManager : MonoBehaviour {
 		_state = EnemyState.DEAD;
 		_healthManager.enabled = false;
 		_zombieSounds.enabled = false;
+		foreach(var collider in Limbs) {
+			collider.enabled = false;
+		}
+		_playerCollision.enabled = false;
 		StartCoroutine(DelayLimbRemoval());
 	}
 
 	public IEnumerator DelayLimbRemoval() {
 		yield return new WaitForSeconds(3);
 		_agent.enabled = false;
-		_playerCollision.enabled = false;
-		foreach(var collider in Limbs) {
-			collider.enabled = false;
-		}
+		
 	}
 
 	public void Hit() {
