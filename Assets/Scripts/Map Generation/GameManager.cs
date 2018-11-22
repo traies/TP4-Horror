@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         _itemGenerator = FindObjectOfType<ItemGenerator>();
         _enemyGenerator = FindObjectOfType<EnemyGenerator>();
         _generator = FindObjectOfType<Generator>();
-        difficulty = CrossScenesData.difficulty;
+        difficulty = CrossScenesData.Instance.difficulty;
         Debug.Log("Difficulty: " + difficulty);
         inGame = true;
         // GenerateLevel();

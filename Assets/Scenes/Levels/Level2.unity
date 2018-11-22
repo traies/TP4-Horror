@@ -10331,7 +10331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8026239af51be41e2a6382ee087189ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Level2_easy
+  nextScene: Level3
 --- !u!135 &403730975
 SphereCollider:
   m_ObjectHideFlags: 0

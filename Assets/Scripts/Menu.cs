@@ -33,7 +33,7 @@ public class Menu : MonoBehaviour {
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(audioClip);
-        CrossScenesData.difficulty = Difficulty.Normal; // As a default value
+        CrossScenesData.Instance.difficulty = Difficulty.Normal; // As a default value
     }
 
     private void OnGUI()
@@ -81,7 +81,7 @@ public class Menu : MonoBehaviour {
                 mainMenu = true;
                 _difficulty = Difficulty.Hard;
             }
-            CrossScenesData.difficulty = _difficulty;
+            CrossScenesData.Instance.difficulty = _difficulty;
         }
         else if (controls)
         {
